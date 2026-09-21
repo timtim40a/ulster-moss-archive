@@ -1,4 +1,4 @@
-import { Card, Footer, Header, Label, PhotoCard } from "@/components/ulster-moss/UlsterMoss";
+import { Card, Footer, Header, Label, PhotoCard } from "@/components/ulster-moss";
 import styles from "./page.module.css";
 
 export default function Home() {
