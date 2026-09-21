@@ -1,10 +1,10 @@
-import { Card, Footer, Header, Label, NAV_ITEMS } from "@/components/ulster-moss";
+import { Card, Footer, Header, HEADER_CTA, Label, NAV_ITEMS } from "@/components/ulster-moss";
 import styles from "../page.module.css";
 
 export default function Archive() {
   return (
     <>
-      <Header title="Ulster Moss Archive" nav={NAV_ITEMS} />
+      <Header title="Ulster Moss Archive" nav={NAV_ITEMS} cta={HEADER_CTA} />
       <main className={styles.main}>
         <section>
           <p className={`quote ${styles.lead}`}>Traces of a landscape, reframed.</p>

@@ -14,11 +14,14 @@
   color: var(--ink);
   padding: var(--space-6) var(--space-6) var(--space-4);
 }
+.um-header__row { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); }
+.um-header__main { flex: 1 1 auto; min-width: 0; }
 .um-header__title { margin: 0 0 var(--space-3); }
 .um-header__rule { border: none; border-top: 1px solid var(--ink); margin: 0 0 var(--space-3); }
 .um-header__nav { display: flex; gap: var(--space-4); flex-wrap: wrap; margin: 0; padding: 0; list-style: none; }
 .um-header__link { color: var(--ink); text-decoration: none; text-transform: uppercase; padding-bottom: 2px; border-bottom: 1px solid transparent; }
 .um-header__link:hover, .um-header__link:focus-visible { border-bottom-color: var(--ink); }
+.um-header__cta { flex: 0 0 auto; }
 
 /* Button */
 .um-button {
@@ -36,6 +39,8 @@
 .um-button:hover, .um-button:active { box-shadow: var(--general-shadow); }
 .um-button:focus-visible { outline: 2px solid var(--accent-lavender); outline-offset: 2px; }
 .um-button--on-moss { background: transparent; color: var(--on-accent-moss); border-color: var(--on-accent-moss); }
+.um-button--lavender { background: var(--accent-lavender); color: var(--on-accent-lavender); border-color: var(--accent-lavender); }
+.um-button--tilt { transform: rotate(-3deg); }
 
 /* PhotoCard */
 .um-photocard { margin: 0; }

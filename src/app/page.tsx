@@ -1,10 +1,10 @@
-import { Footer, Header, NAV_ITEMS } from "@/components/ulster-moss";
+import { Footer, Header, HEADER_CTA, NAV_ITEMS } from "@/components/ulster-moss";
 import styles from "./page.module.css";
 
 export default function Home() {
   return (
     <>
-      <Header title="Ulster Moss Archive" nav={NAV_ITEMS} />
+      <Header title="Ulster Moss Archive" nav={NAV_ITEMS} cta={HEADER_CTA} />
       <main className={styles.main}>
         <section>
           <h1 className="display-md">Welcome</h1>

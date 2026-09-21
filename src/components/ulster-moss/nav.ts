@@ -4,5 +4,6 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Archive", href: "/archive" },
   { label: "Statement", href: "/statement" },
-  { label: "Contact", href: "#contact" },
 ];
+
+export const HEADER_CTA: NavItem = { label: "Order now", href: "#contact" };
