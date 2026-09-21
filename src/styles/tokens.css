@@ -1,0 +1,83 @@
+/* Ulster Moss Archive -- design tokens, compiled from tokens.json */
+:root, [data-theme="light"] {
+  --paper: #F1E8DE; /* Page, Header, Card and Footer background — always textured with the paper grain. */
+  --ink: #100E0B; /* Primary text on paper; hairline outlines on Buttons, Photo card frames and Cards. */
+  --accent-lavender: #7B7DB2; /* Sparing accent: the focus ring on every interactive element, and the default-tone Label fill. Never paired with accent-moss in the same component. */
+  --accent-moss: #495920; /* Sparing dark accent: the Footer background only, textured with the same grain. Never paired with accent-lavender in the same component. */
+  --on-accent-lavender: var(--paper); /* Light text on an accent-lavender fill — the Label accent tone (~3.2:1: chosen for the look of light-on-lavender rather than full body-text contrast, so keep it to short, tracked eyebrow text, never a paragraph). */
+  --on-accent-moss: var(--paper); /* Text, borders and icons on accent-moss, i.e. everything in the Footer (6.4:1). */
+  --general-shadow: 0 8px 15px #736d6880;
+}
+:root {
+  --space-1: 4px; /* Tight gaps — icon to label, form field gaps. */
+  --space-2: 8px; /* Label/tag padding, Photo card caption gap. */
+  --space-3: 12px; /* Button padding, Card title gap. */
+  --space-4: 16px; /* Card padding, Header nav item gap. */
+  --space-6: 24px; /* Card-to-card gap, Header/Footer side padding. */
+  --space-8: 32px; /* Header and Footer vertical padding. */
+  --space-12: 48px; /* Page-level section spacing. */
+  --button-radius: 1px; /* Buttons, Label tags, and every photo frame — including a Card's — effectively square. Never on the Card container itself, which has no border of its own. */
+  --font-serif: var(--font-cormorant), "Iowan Old Style", Georgia, serif;
+  --font-script: "Artefact", var(--font-caveat), cursive;
+}
+
+.display-lg {
+  font-family: var(--font-serif);
+  font-size: 64px;
+  line-height: 61px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.display-md {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  line-height: 31px;
+  font-weight: 500;
+}
+.display-sm {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+.body {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
+}
+.quote {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
+  font-style: italic;
+}
+.nav {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+.button-label {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+.eyebrow {
+  font-family: var(--font-serif);
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+.caption {
+  font-family: var(--font-script);
+  font-size: 19px;
+  line-height: 24px;
+  font-weight: 400;
+}

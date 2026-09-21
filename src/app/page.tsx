@@ -1,69 +1,64 @@
-import Image from "next/image";
+import { Card, Footer, Header, Label, PhotoCard } from "@/components/ulster-moss/UlsterMoss";
 import styles from "./page.module.css";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
+    <>
+      <Header
+        title="Ulster Moss Archive"
+        nav={[
+          { label: "Archive", href: "#archive" },
+          { label: "Objects", href: "#objects" },
+          { label: "Contact", href: "#contact" },
+        ]}
+      />
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+        <section id="archive">
+          <p className={`quote ${styles.lead}`}>Traces of a landscape, reframed.</p>
+        </section>
+
+        <section id="objects" className={styles.objects}>
+          <Card
+            title="Fragment, Ulster Moss"
+            rows={[
+              {
+                value:
+                  "Recovered from peat, six centimetres below the surface. Surface worn smooth; no visible tool marks.",
+              },
+              { label: "Location", value: "54.6°N, 6.2°W" },
+              { label: "Date found", value: "14 March 1987" },
+              { label: "Material", value: "Bog oak" },
+            ]}
+            photos={[
+              { src: "/photos/photo-focus.jpg", alt: "Bog oak fragment, front face" },
+              { src: "/photos/photo-plinth.jpg", alt: "Fragment on display plinth" },
+              { src: "/photos/photo-detail.jpg", alt: "Detail of the worn surface" },
+            ]}
+          />
+
+          <Label tone="accent">Origin unconfirmed</Label>
+
+          <Card
+            title="Vessel, partial"
+            rows={[
+              { value: "Rim and shoulder only. Base missing. Interior carries a faint ash residue." },
+              { label: "Location", value: "54.6°N, 6.2°W" },
+              { label: "Date found", value: "2 September 1991" },
+              { label: "Material", value: "Coarse earthenware" },
+            ]}
+            photos={[
+              { src: "/photos/photo-plinth.jpg", alt: "Vessel fragment on plinth" },
+              { src: "/photos/photo-detail.jpg", alt: "Detail of the rim" },
+            ]}
+          />
+        </section>
       </main>
-    </div>
+      <div id="contact">
+        <Footer
+          heading="Get in touch"
+          blurb="Enquiries about specific objects, provenance, or loan requests."
+        />
+      </div>
+    </>
   );
 }
