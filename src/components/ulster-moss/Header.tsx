@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import "./ulster-moss.css";
 
 export interface NavItem {
@@ -20,9 +21,9 @@ export function Header({ title = "Ulster Moss Archive", nav = [] }: HeaderProps)
       {nav.length > 0 && (
         <nav className="um-header__nav">
           {nav.map((item, i) => (
-            <a key={i} className="um-header__link nav" href={item.href || "#"}>
+            <Link key={i} className="um-header__link nav" href={item.href || "#"}>
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
       )}

@@ -1,4 +1,5 @@
 export * from "./Header";
+export * from "./nav";
 export * from "./Button";
 export * from "./PhotoCard";
 export * from "./Card";
