@@ -393,7 +393,7 @@
     .grid {
         grid-template-columns: 1fr;
         grid-auto-rows: auto;
-        aspect-ratio: none;
+        aspect-ratio: auto;
     }
 
     .cell {
