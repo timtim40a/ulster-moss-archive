@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ArchiveSheet } from "./ArchiveSheet";
 import type { ArchiveSheetProps } from "./types";
-import styles from "./ArchiveSheet.module.css";
+import styles from "./ShuffleControls.module.css";
 
 export interface ShuffleableSheetProps extends Omit<ArchiveSheetProps, "seed"> {
     /** Starting seed. Defaults to `title`, same as ArchiveSheet itself. */

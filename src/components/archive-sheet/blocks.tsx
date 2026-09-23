@@ -1,35 +1,41 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import type { Block, MapScale } from "./types";
-import styles from "./ArchiveSheet.module.css";
+import mediaStyles from "./MediaFrame.module.css";
+import photoStyles from "./Photo.module.css";
+import tableStyles from "./Table.module.css";
+import textStyles from "./Text.module.css";
+import specimensStyles from "./Specimens.module.css";
+import mapStyles from "./Map.module.css";
+import stampStyles from "./Stamp.module.css";
 
 type ExtractBlock<K extends Block["kind"]> = Extract<Block, { kind: K }>;
 
 function PhotoBlockView({ block }: { block: ExtractBlock<"photo"> }) {
     const isSketch = block.variant === "sketch";
     return (
-        <div className={styles.photo}>
-            <div className={styles.mediaFrame}>
+        <div className={photoStyles.photo}>
+            <div className={mediaStyles.mediaFrame}>
                 <Image
                     src={block.src}
                     alt={block.alt}
                     fill
                     sizes="(max-width: 700px) 90vw, 40vw"
-                    className={`${styles.mediaCover} ${isSketch ? styles.printed : ""}`}
+                    className={`${mediaStyles.mediaCover} ${isSketch ? mediaStyles.printed : ""}`}
                 />
             </div>
-            {block.caption && <p className={styles.caption}>{block.caption}</p>}
+            {block.caption && <p className={mediaStyles.caption}>{block.caption}</p>}
         </div>
     );
 }
 
 function TableBlockView({ block }: { block: ExtractBlock<"table"> }) {
     return (
-        <div className={styles.table}>
-            {block.title && <h3 className={styles.blockTitle}>{block.title}</h3>}
-            <dl className={styles.kv}>
+        <div className={tableStyles.table}>
+            {block.title && <h3 className={mediaStyles.blockTitle}>{block.title}</h3>}
+            <dl className={tableStyles.kv}>
                 {block.rows.map(([label, value], i) => (
-                    <div className={styles.kvRow} key={i}>
+                    <div className={tableStyles.kvRow} key={i}>
                         <dt>{label}</dt>
                         <dd>{value}</dd>
                     </div>
@@ -42,30 +48,30 @@ function TableBlockView({ block }: { block: ExtractBlock<"table"> }) {
 function TextBlockView({ block }: { block: ExtractBlock<"text"> }) {
     const isNote = block.tone === "note";
     return (
-        <div className={`${styles.text} ${isNote ? styles.note : ""}`}>
-            {block.heading && <h3 className={styles.blockTitle}>{block.heading}</h3>}
-            <p className={isNote ? styles.handwritten : undefined}>{block.body}</p>
+        <div className={`${textStyles.text} ${isNote ? textStyles.note : ""}`}>
+            {block.heading && <h3 className={mediaStyles.blockTitle}>{block.heading}</h3>}
+            <p className={isNote ? textStyles.handwritten : undefined}>{block.body}</p>
         </div>
     );
 }
 
 function SpecimensBlockView({ block }: { block: ExtractBlock<"specimens"> }) {
     return (
-        <div className={styles.specimens}>
-            {block.title && <h3 className={styles.blockTitle}>{block.title}</h3>}
-            <ul className={styles.specimenList}>
+        <div className={specimensStyles.specimens}>
+            {block.title && <h3 className={mediaStyles.blockTitle}>{block.title}</h3>}
+            <ul className={specimensStyles.specimenList}>
                 {block.items.map((item, i) => (
-                    <li className={styles.specimenItem} key={i}>
-                        <div className={`${styles.mediaFrame} ${styles.specimenThumb}`}>
+                    <li className={specimensStyles.specimenItem} key={i}>
+                        <div className={`${mediaStyles.mediaFrame} ${specimensStyles.specimenThumb}`}>
                             <Image
                                 src={item.src}
                                 alt={item.name}
                                 fill
                                 sizes="120px"
-                                className={`${styles.mediaContain} ${styles.printed}`}
+                                className={`${mediaStyles.mediaContain} ${mediaStyles.printed}`}
                             />
                         </div>
-                        <span className={styles.specimenLabel}>
+                        <span className={specimensStyles.specimenLabel}>
                             <span>{item.name}</span>
                             {item.latin && <em>{item.latin}</em>}
                         </span>
@@ -80,9 +86,9 @@ function ScaleBar({ scale }: { scale: MapScale }) {
     const steps = scale.steps ?? 4;
     const style = { "--steps": steps } as CSSProperties;
     return (
-        <div className={styles.scaleBar} style={style}>
-            <div className={styles.scaleTrack} />
-            <div className={styles.scaleLabels}>
+        <div className={mapStyles.scaleBar} style={style}>
+            <div className={mapStyles.scaleTrack} />
+            <div className={mapStyles.scaleLabels}>
                 {Array.from({ length: steps + 1 }, (_, i) => (
                     <span key={i}>
                         {Math.round((scale.max / steps) * i)}
@@ -96,38 +102,38 @@ function ScaleBar({ scale }: { scale: MapScale }) {
 
 function MapBlockView({ block }: { block: ExtractBlock<"map"> }) {
     return (
-        <div className={styles.map}>
-            {block.title && <h3 className={styles.blockTitle}>{block.title}</h3>}
-            <div className={`${styles.mediaFrame} ${styles.mapFrame}`}>
+        <div className={mapStyles.map}>
+            {block.title && <h3 className={mediaStyles.blockTitle}>{block.title}</h3>}
+            <div className={`${mediaStyles.mediaFrame} ${mapStyles.mapFrame}`}>
                 <Image
                     src={block.src}
                     alt={block.alt}
                     fill
                     sizes="(max-width: 700px) 90vw, 40vw"
-                    className={`${styles.mediaContain} ${styles.printed}`}
+                    className={`${mediaStyles.mediaContain} ${mediaStyles.printed}`}
                 />
                 {block.markers?.map((marker, i) => (
                     <span
-                        className={styles.marker}
+                        className={mapStyles.marker}
                         key={i}
                         style={{ left: `${marker.x}%`, top: `${marker.y}%` }}
                     >
-                        <span className={styles.markerDot}>{i + 1}</span>
-                        <span className={styles.markerLabel}>{marker.label}</span>
+                        <span className={mapStyles.markerDot}>{i + 1}</span>
+                        <span className={mapStyles.markerLabel}>{marker.label}</span>
                     </span>
                 ))}
             </div>
             {block.scale && <ScaleBar scale={block.scale} />}
-            {block.caption && <p className={styles.caption}>{block.caption}</p>}
+            {block.caption && <p className={mediaStyles.caption}>{block.caption}</p>}
         </div>
     );
 }
 
 function StampBlockView({ block }: { block: ExtractBlock<"stamp"> }) {
     return (
-        <div className={styles.stamp}>
-            <span className={styles.stampLabel}>{block.label}</span>
-            {block.note && <span className={styles.stampNote}>{block.note}</span>}
+        <div className={stampStyles.stamp}>
+            <span className={stampStyles.stampLabel}>{block.label}</span>
+            {block.note && <span className={stampStyles.stampNote}>{block.note}</span>}
         </div>
     );
 }

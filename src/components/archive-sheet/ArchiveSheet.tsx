@@ -3,7 +3,9 @@ import { archiveSerif, archiveHand } from "@/app/fonts";
 import type { ArchiveSheetProps } from "./types";
 import { resolveLayout } from "./layout";
 import { BlockView, isBottomAligned } from "./blocks";
-import styles from "./ArchiveSheet.module.css";
+import sheetStyles from "./Sheet.module.css";
+import headerStyles from "./Header.module.css";
+import gridStyles from "./Grid.module.css";
 
 const DEFAULT_GRID = { cols: 12, rows: 8 };
 const DEFAULT_GRID_ASPECT = 1.75;
@@ -36,25 +38,25 @@ export function ArchiveSheet({
 
     return (
         <article
-            className={[styles.sheet, archiveSerif.variable, archiveHand.variable, className]
+            className={[sheetStyles.sheet, archiveSerif.variable, archiveHand.variable, className]
                 .filter(Boolean)
                 .join(" ")}
         >
-            <div className={styles.page} style={rootStyle}>
-                <header className={styles.header}>
-                    <div className={styles.heading}>
-                        <h2 className={styles.title}>{title}</h2>
+            <div className={sheetStyles.page} style={rootStyle}>
+                <header className={headerStyles.header}>
+                    <div className={headerStyles.heading}>
+                        <h2 className={headerStyles.title}>{title}</h2>
                         {subtitle && (
                             <>
-                                <hr className={styles.rule} />
-                                <p className={styles.subtitle}>{subtitle}</p>
+                                <hr className={headerStyles.rule} />
+                                <p className={headerStyles.subtitle}>{subtitle}</p>
                             </>
                         )}
                     </div>
-                    {code && <div className={styles.code}>{code}</div>}
+                    {code && <div className={headerStyles.code}>{code}</div>}
                 </header>
 
-                <div className={`${styles.grid} ${spread ? styles.spread : ""}`}>
+                <div className={`${gridStyles.grid} ${spread ? gridStyles.spread : ""}`}>
                     {placed.map(({ block, area }) => {
                         const cellStyle = {
                             "--c": area.col,
@@ -65,7 +67,7 @@ export function ArchiveSheet({
                         return (
                             <div
                                 key={block.id}
-                                className={`${styles.cell} ${isBottomAligned(block) ? styles.cellStamp : ""}`}
+                                className={`${gridStyles.cell} ${isBottomAligned(block) ? gridStyles.cellStamp : ""}`}
                                 style={cellStyle}
                             >
                                 <BlockView block={block} />

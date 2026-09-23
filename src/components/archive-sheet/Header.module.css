@@ -1,0 +1,66 @@
+/* ArchiveSheet header: title, hairline rule, subtitle, and the boxed
+   reference code on the right. */
+
+.header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2cqw;
+    margin-bottom: 2.4cqw;
+}
+
+.heading {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.title {
+    margin: 0 0 1cqw;
+    font-family: var(--font-serif);
+    font-size: 5.2cqw;
+    line-height: 1;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.rule {
+    border: none;
+    border-top: 1px solid var(--as-rule);
+    margin: 0 0 0.8cqw;
+}
+
+.subtitle {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 1.3cqw;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgb(34 32 28 / 0.75);
+}
+
+.code {
+    flex: 0 0 auto;
+    border: 1px solid var(--as-rule);
+    padding: 0.6cqw 1cqw;
+    font-family: var(--font-serif);
+    font-size: 1.2cqw;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+@container (max-width: 700px) {
+    .title {
+        font-size: 9cqw;
+    }
+
+    .subtitle {
+        font-size: 4.2cqw;
+    }
+
+    .code {
+        font-size: 3.8cqw;
+        padding: 1.2cqw 2cqw;
+    }
+}

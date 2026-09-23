@@ -1,0 +1,40 @@
+/* stamp block: a borderless, bottom-aligned rotated label. */
+
+.stamp {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    text-align: right;
+}
+
+.stampLabel {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1.1cqw;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border: 2px solid rgb(140 40 30 / 0.55);
+    border-radius: 2px;
+    color: rgb(140 40 30 / 0.7);
+    padding: 0.4cqw 0.8cqw;
+    transform: rotate(-4deg);
+}
+
+.stampNote {
+    display: block;
+    margin-top: 0.5cqw;
+    font-family: var(--font-hand);
+    font-size: 1.3cqw;
+}
+
+@container (max-width: 700px) {
+    .stampLabel {
+        font-size: 4cqw;
+    }
+
+    .stampNote {
+        font-size: 5.5cqw;
+    }
+}

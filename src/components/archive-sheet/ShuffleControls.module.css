@@ -1,0 +1,36 @@
+/* ShuffleableSheet's reroll button and seed readout -- not part of the
+   paper itself, so these sit outside .sheet's scope and use plain colors
+   rather than its --as-* custom properties. */
+
+.shuffleWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.shuffleBar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.shuffleButton {
+    font: inherit;
+    padding: 6px 14px;
+    border: 1px solid #22201c;
+    border-radius: 2px;
+    background: #ede6d7;
+    color: #22201c;
+    cursor: pointer;
+}
+
+.shuffleButton:hover {
+    background: #22201c;
+    color: #ede6d7;
+}
+
+.shuffleSeed {
+    font-family: monospace;
+    font-size: 13px;
+    opacity: 0.7;
+}

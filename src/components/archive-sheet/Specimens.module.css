@@ -1,0 +1,67 @@
+/* specimens block: a wrapping row of small square thumbnails, each with
+   a name/latin label underneath. Thumbnails use MediaFrame's
+   .mediaFrame/.mediaContain/.printed classes too. */
+
+.specimens {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.specimenList {
+    margin: 0.4cqw 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1cqw;
+    overflow-y: auto;
+}
+
+.specimenItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5cqw;
+    flex: 1 1 8cqw;
+    max-width: 10cqw;
+}
+
+.specimenThumb {
+    width: 100%;
+    aspect-ratio: 1;
+    flex: none;
+}
+
+.specimenLabel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-family: var(--font-serif);
+    font-size: 0.95cqw;
+    line-height: 1.3;
+}
+
+.specimenLabel em {
+    font-style: italic;
+    opacity: 0.75;
+}
+
+@container (max-width: 700px) {
+    /* specimenThumb shares MediaFrame's .mediaFrame, but is a small square
+       thumbnail, not a full-bleed photo -- don't force it to the same
+       min-height. */
+    .specimenThumb {
+        min-height: 0;
+    }
+
+    .specimenItem {
+        flex: 1 1 26cqw;
+        max-width: 30cqw;
+    }
+
+    .specimenLabel {
+        font-size: 4cqw;
+    }
+}

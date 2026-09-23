@@ -1,0 +1,74 @@
+/* ArchiveSheet grid: the CSS grid itself, the centre-fold "spread"
+   shading, and each bordered cell. */
+
+.grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    grid-template-rows: repeat(var(--rows), minmax(0, 1fr));
+    gap: 0.9cqw;
+    aspect-ratio: var(--grid-aspect);
+}
+
+.spread::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 6cqw;
+    transform: translateX(-50%);
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgb(34 32 28 / 0.22) 45%,
+        rgb(34 32 28 / 0.3) 50%,
+        rgb(34 32 28 / 0.22) 55%,
+        transparent
+    );
+    pointer-events: none;
+    z-index: 2;
+}
+
+.cell {
+    grid-column: var(--c) / span var(--cs);
+    grid-row: var(--r) / span var(--rs);
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--as-rule);
+    padding: 1.1cqw;
+}
+
+.cellStamp {
+    border: none;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+@container (max-width: 700px) {
+    .grid {
+        grid-template-columns: 1fr;
+        /* Clear the explicit 8-track row definition -- otherwise every
+           single-cell row still gets stretched to match the tallest of
+           those 8 equal-fr tracks, leaving huge empty space in short
+           cells (table/text/specimens/stamp). */
+        grid-template-rows: none;
+        grid-auto-rows: auto;
+        aspect-ratio: auto;
+    }
+
+    .cell {
+        grid-column: 1 / -1;
+        grid-row: auto;
+    }
+
+    /* The grid is too narrow on mobile to read as two facing pages --
+       make a "spread" sheet look identical to a normal one. */
+    .spread::before {
+        display: none;
+    }
+}

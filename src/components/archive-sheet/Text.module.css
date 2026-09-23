@@ -1,0 +1,38 @@
+/* text block: a heading (via MediaFrame's .blockTitle) plus a body
+   paragraph, either plain or a handwritten "note" tone. */
+
+.text {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: auto;
+}
+
+.text p {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 1.2cqw;
+    line-height: 1.5;
+}
+
+.note {
+    background: rgb(34 32 28 / 0.05);
+}
+
+/* Same specificity as ".text p" (type + class); wins on source order
+   instead of needing !important. */
+p.handwritten {
+    font-family: var(--font-hand);
+    font-size: 1.7cqw;
+    line-height: 1.3;
+}
+
+@container (max-width: 700px) {
+    .text p {
+        font-size: 4.4cqw;
+    }
+
+    p.handwritten {
+        font-size: 5.5cqw;
+    }
+}

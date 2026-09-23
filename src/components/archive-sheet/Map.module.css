@@ -1,0 +1,82 @@
+/* map block: the map image (via MediaFrame), numbered markers, and an
+   optional scale bar. */
+
+.map {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    flex: 1 1 auto;
+}
+
+.mapFrame {
+    flex: 1 1 auto;
+}
+
+.marker {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    gap: 0.4cqw;
+    z-index: 1;
+}
+
+.markerDot {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 1.7cqw;
+    height: 1.7cqw;
+    min-width: 14px;
+    min-height: 14px;
+    border-radius: 50%;
+    background: var(--as-ink);
+    color: var(--as-paper);
+    font-family: var(--font-serif);
+    font-size: 0.9cqw;
+    font-weight: 600;
+}
+
+.markerLabel {
+    font-family: var(--font-hand);
+    font-size: 1.4cqw;
+    background: rgb(237 230 215 / 0.85);
+    padding: 0 0.3cqw;
+    white-space: nowrap;
+}
+
+.scaleBar {
+    margin-top: 0.8cqw;
+}
+
+.scaleTrack {
+    height: 0.6cqw;
+    min-height: 5px;
+    border: 1px solid var(--as-ink);
+    background-image: repeating-linear-gradient(
+        to right,
+        var(--as-ink) 0,
+        var(--as-ink) calc(100% / var(--steps) / 2),
+        transparent calc(100% / var(--steps) / 2),
+        transparent calc(100% / var(--steps))
+    );
+}
+
+.scaleLabels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.3cqw;
+    font-family: var(--font-serif);
+    font-size: 0.85cqw;
+}
+
+@container (max-width: 700px) {
+    .markerLabel {
+        font-size: 5.5cqw;
+    }
+
+    .scaleLabels {
+        font-size: 3.6cqw;
+    }
+}
