@@ -405,6 +405,17 @@
         min-height: 60cqw;
     }
 
+    /* specimenThumb shares .mediaFrame, but is a small square thumbnail,
+       not a full-bleed photo -- don't force it to the same min-height. */
+    .specimenThumb {
+        min-height: 0;
+    }
+
+    .specimenItem {
+        flex: 1 1 26cqw;
+        max-width: 30cqw;
+    }
+
     .title {
         font-size: 9cqw;
     }
