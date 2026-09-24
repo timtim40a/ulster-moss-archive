@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 import { archiveSerif, archiveHand } from "@/app/fonts";
 import type { ArchiveSheetProps } from "./types";
 import { resolveLayout } from "./layout";
-import { BlockView, isBottomAligned } from "./blocks";
+import { BlockView } from "./blocks";
 import sheetStyles from "./Sheet.module.css";
 import headerStyles from "./Header.module.css";
 import gridStyles from "./Grid.module.css";
@@ -28,7 +28,11 @@ export function ArchiveSheet({
     spread = false,
     className,
 }: ArchiveSheetProps) {
-    const placed = resolveLayout(blocks, layout, grid, seed ?? title, gridAspect);
+    // Stamps are a floating overlay, not part of the grid -- they never
+    // consume a partition slot, a manual area, or a template rect.
+    const stampBlocks = blocks.filter((block) => block.kind === "stamp");
+    const layoutBlocks = blocks.filter((block) => block.kind !== "stamp");
+    const placed = resolveLayout(layoutBlocks, layout, grid, seed ?? title, gridAspect);
 
     const rootStyle = {
         "--cols": grid.cols,
@@ -65,15 +69,17 @@ export function ArchiveSheet({
                             "--rs": area.rowSpan,
                         } as CSSProperties;
                         return (
-                            <div
-                                key={block.id}
-                                className={`${gridStyles.cell} ${isBottomAligned(block) ? gridStyles.cellStamp : ""}`}
-                                style={cellStyle}
-                            >
+                            <div key={block.id} className={gridStyles.cell} style={cellStyle}>
                                 <BlockView block={block} />
                             </div>
                         );
                     })}
+
+                    {stampBlocks.map((block) => (
+                        <div key={block.id} className={gridStyles.stampOverlay}>
+                            <BlockView block={block} />
+                        </div>
+                    ))}
                 </div>
             </div>
         </article>

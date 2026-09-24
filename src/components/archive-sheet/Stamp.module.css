@@ -1,13 +1,5 @@
-/* stamp block: a borderless, bottom-aligned rotated label. */
-
-.stamp {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
-    text-align: right;
-}
+/* stamp block: a rotated label, floated on top of the grid by
+   Grid.module.css's .stampOverlay. */
 
 .stampLabel {
     display: block;
@@ -20,21 +12,11 @@
     color: rgb(140 40 30 / 0.7);
     padding: 0.4cqw 0.8cqw;
     transform: rotate(-4deg);
-}
-
-.stampNote {
-    display: block;
-    margin-top: 0.5cqw;
-    font-family: var(--font-hand);
-    font-size: 1.3cqw;
+    background-color: var(--as-paper);
 }
 
 @container (max-width: 700px) {
     .stampLabel {
         font-size: 4cqw;
-    }
-
-    .stampNote {
-        font-size: 5.5cqw;
     }
 }

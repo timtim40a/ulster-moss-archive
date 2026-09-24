@@ -80,7 +80,6 @@ const baseBlocks: Block[] = [
         id: "site-stamp",
         kind: "stamp",
         label: "UMA / SITE-01",
-        note: "catalogued",
         aspect: 1,
     },
 ];
@@ -128,7 +127,6 @@ const spreadBlocks: Block[] = [
         id: "spread-stamp",
         kind: "stamp",
         label: "UMA / SITE-02",
-        note: "on loan",
         aspect: 1,
     },
 ];
@@ -189,18 +187,18 @@ const templateBlocks: Block[] = [
         id: "tpl-stamp",
         kind: "stamp",
         label: "UMA / SITE-01",
-        note: "catalogued",
     },
 ];
 
+// One rect per non-stamp block above, in order -- the stamp floats over
+// the grid instead of taking a rect of its own.
 const template: Rect[] = [
     { col: 1, row: 1, colSpan: 6, rowSpan: 5 }, // tpl-focus
     { col: 7, row: 1, colSpan: 3, rowSpan: 3 }, // tpl-sketch
     { col: 10, row: 1, colSpan: 3, rowSpan: 3 }, // tpl-table
     { col: 7, row: 4, colSpan: 6, rowSpan: 2 }, // tpl-note
     { col: 1, row: 6, colSpan: 4, rowSpan: 3 }, // tpl-specimens
-    { col: 5, row: 6, colSpan: 5, rowSpan: 3 }, // tpl-map
-    { col: 10, row: 6, colSpan: 3, rowSpan: 3 }, // tpl-stamp
+    { col: 5, row: 6, colSpan: 8, rowSpan: 3 }, // tpl-map
 ];
 
 export default function TestPage() {

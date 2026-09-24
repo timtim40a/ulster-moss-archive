@@ -84,7 +84,6 @@ export interface MapBlock extends BlockBase {
 export interface StampBlock extends BlockBase {
     kind: "stamp";
     label: string;
-    note?: string;
 }
 
 export type Block =

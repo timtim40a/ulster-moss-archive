@@ -43,10 +43,13 @@
     padding: 1.1cqw;
 }
 
-.cellStamp {
-    border: none;
-    justify-content: flex-end;
-    align-items: flex-end;
+/* Stamps don't get a grid cell -- they float on top of the grid, anchored
+   to its own box, contributing nothing to track sizing or the partition. */
+.stampOverlay {
+    position: absolute;
+    right: 1.5cqw;
+    bottom: 1.5cqw;
+    z-index: 5;
 }
 
 @container (max-width: 700px) {

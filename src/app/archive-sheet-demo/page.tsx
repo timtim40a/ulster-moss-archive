@@ -72,22 +72,21 @@ const blocks: Block[] = [
         id: "site-stamp",
         kind: "stamp",
         label: "UMA / SITE-01",
-        note: "catalogued",
         aspect: 1,
     },
 ];
 
-// Hand-made template: one Rect per block above, in order, tiling the
-// default 12x8 grid exactly (no gaps, no overlaps -- but layout="manual"
-// or a Rect[] template don't require that, it's just tidier here).
+// Hand-made template: one Rect per non-stamp block above, in order, tiling
+// the default 12x8 grid exactly (no gaps, no overlaps -- but layout="manual"
+// or a Rect[] template don't require that, it's just tidier here). The
+// stamp doesn't get a rect -- it floats over the grid instead.
 const template: Rect[] = [
     { col: 1, row: 1, colSpan: 6, rowSpan: 5 }, // focus-photo
     { col: 7, row: 1, colSpan: 3, rowSpan: 3 }, // detail-sketch
     { col: 10, row: 1, colSpan: 3, rowSpan: 3 }, // field-notes
     { col: 7, row: 4, colSpan: 6, rowSpan: 2 }, // margin-note
     { col: 1, row: 6, colSpan: 4, rowSpan: 3 }, // specimen-set
-    { col: 5, row: 6, colSpan: 5, rowSpan: 3 }, // site-map
-    { col: 10, row: 6, colSpan: 3, rowSpan: 3 }, // site-stamp
+    { col: 5, row: 6, colSpan: 8, rowSpan: 3 }, // site-map
 ];
 
 export default function ArchiveSheetDemo() {

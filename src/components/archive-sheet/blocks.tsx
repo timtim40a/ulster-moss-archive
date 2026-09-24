@@ -130,12 +130,7 @@ function MapBlockView({ block }: { block: ExtractBlock<"map"> }) {
 }
 
 function StampBlockView({ block }: { block: ExtractBlock<"stamp"> }) {
-    return (
-        <div className={stampStyles.stamp}>
-            <span className={stampStyles.stampLabel}>{block.label}</span>
-            {block.note && <span className={stampStyles.stampNote}>{block.note}</span>}
-        </div>
-    );
+    return <span className={stampStyles.stampLabel}>{block.label}</span>;
 }
 
 export function BlockView({ block }: { block: Block }) {
@@ -159,7 +154,3 @@ export function BlockView({ block }: { block: Block }) {
     }
 }
 
-/** True for block kinds that should sit borderless and bottom-aligned in their cell. */
-export function isBottomAligned(block: Block): boolean {
-    return block.kind === "stamp";
-}

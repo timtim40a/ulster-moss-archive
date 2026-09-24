@@ -1,6 +1,6 @@
 /* Ulster Moss Archive -- design tokens, compiled from tokens.json */
 :root, [data-theme="light"] {
-  --paper: #F1E8DE; /* Page, Header, Card and Footer background — always textured with the paper grain. */
+  --paper: #f9f4ee; /* Page, Header, Card and Footer background — always textured with the paper grain. */
   --ink: #100E0B; /* Primary text on paper; hairline outlines on Buttons, Photo card frames and Cards. */
   --accent-lavender: #7B7DB2; /* Sparing accent: the focus ring on every interactive element, and the default-tone Label fill. Never paired with accent-moss in the same component. */
   --accent-moss: #495920; /* Sparing dark accent: the Footer background only, textured with the same grain. Never paired with accent-lavender in the same component. */
