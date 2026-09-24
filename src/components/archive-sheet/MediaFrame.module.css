@@ -1,0 +1,55 @@
+/* Shared by every block that shows an image (photo, map, specimens) or a
+   block title/caption -- not a block kind of its own. */
+
+.mediaFrame {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    background: rgb(34 32 28 / 0.05);
+}
+
+.mediaCover {
+    object-fit: cover;
+}
+
+.mediaContain {
+    object-fit: contain;
+}
+
+/* sketches, maps and specimens print onto the paper rather than sitting
+   on top of it like a photograph. */
+.printed {
+    mix-blend-mode: multiply;
+    filter: grayscale(1) sepia(0.15);
+}
+
+.caption {
+    margin: 0.8cqw 0 0;
+    font-family: var(--font-hand);
+    font-size: 1.7cqw;
+    line-height: 1.2;
+}
+
+.blockTitle {
+    margin: 0 0 0.8cqw;
+    font-family: var(--font-serif);
+    font-size: 1.3cqw;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+@container (max-width: 700px) {
+    .mediaFrame {
+        min-height: 60cqw;
+    }
+
+    .caption {
+        font-size: 5.5cqw;
+    }
+
+    .blockTitle {
+        font-size: 4.4cqw;
+    }
+}

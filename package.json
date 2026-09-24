@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "verify:archive-sheet": "node scripts/verify-archive-sheet-layout.mts"
   },
   "dependencies": {
     "next": "16.3.5",

@@ -1,0 +1,22 @@
+/* stamp block: a rotated label, floated on top of the grid by
+   Grid.module.css's .stampOverlay. */
+
+.stampLabel {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1.1cqw;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border: 2px solid rgb(140 40 30 / 0.55);
+    border-radius: 2px;
+    color: rgb(140 40 30 / 0.7);
+    padding: 0.4cqw 0.8cqw;
+    transform: rotate(-4deg);
+    background-color: var(--as-paper);
+}
+
+@container (max-width: 700px) {
+    .stampLabel {
+        font-size: 4cqw;
+    }
+}
