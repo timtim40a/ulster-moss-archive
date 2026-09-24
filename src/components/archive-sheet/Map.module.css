@@ -1,7 +1,17 @@
 /* map block: the map image (via MediaFrame), numbered markers, and an
    optional scale bar. */
 
+/* One sheet-cqw, computed to px on .map. The geo frame below is a size
+   container, which would make plain cqw inside it measure the map instead
+   of the sheet -- so every size in this file goes through --map-u. */
+@property --map-u {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 0px;
+}
+
 .map {
+    --map-u: 1cqw;
     display: flex;
     flex-direction: column;
     min-height: 0;
@@ -17,7 +27,7 @@
     transform: translate(-50%, -50%);
     display: flex;
     align-items: center;
-    gap: 0.4cqw;
+    gap: calc(0.4 * var(--map-u));
     z-index: 1;
 }
 
@@ -26,32 +36,32 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    width: 1.7cqw;
-    height: 1.7cqw;
+    width: calc(1.7 * var(--map-u));
+    height: calc(1.7 * var(--map-u));
     min-width: 14px;
     min-height: 14px;
     border-radius: 50%;
     background: var(--as-ink);
     color: var(--as-paper);
     font-family: var(--font-serif);
-    font-size: 0.9cqw;
+    font-size: calc(0.9 * var(--map-u));
     font-weight: 600;
 }
 
 .markerLabel {
     font-family: var(--font-hand);
-    font-size: 1.4cqw;
+    font-size: calc(1.4 * var(--map-u));
     background: rgb(237 230 215 / 0.85);
-    padding: 0 0.3cqw;
+    padding: 0 calc(0.3 * var(--map-u));
     white-space: nowrap;
 }
 
 .scaleBar {
-    margin-top: 0.8cqw;
+    margin-top: calc(0.8 * var(--map-u));
 }
 
 .scaleTrack {
-    height: 0.6cqw;
+    height: calc(0.6 * var(--map-u));
     min-height: 5px;
     border: 1px solid var(--as-ink);
     background-image: repeating-linear-gradient(
@@ -66,17 +76,107 @@
 .scaleLabels {
     display: flex;
     justify-content: space-between;
-    margin-top: 0.3cqw;
+    margin-top: calc(0.3 * var(--map-u));
     font-family: var(--font-serif);
-    font-size: 0.85cqw;
+    font-size: calc(0.85 * var(--map-u));
 }
 
-@container (max-width: 700px) {
+/* ---- geo map: markers given as coordinates (see geoMap.ts) ----
+
+   The frame is a size container; the canvas is the whole map image, scaled
+   so the marker box (--bw x --bh, centred on --bcx/--bcy, all fractions of
+   the image) fits the frame, then panned to centre it without showing the
+   image's border (--inset) -- unless the whole inner map is smaller than
+   the frame, in which case it's kept fully in view instead. */
+
+.geoFrame {
+    container-type: size;
+    --s: min(100cqw / var(--bw), 100cqh / var(--bh));
+}
+
+.geoCanvas {
+    position: absolute;
+    width: var(--s);
+    height: var(--s);
+    left: clamp(
+        min(-1 * var(--inset) * var(--s), 100cqw - (1 - var(--inset)) * var(--s)),
+        50cqw - var(--bcx) * var(--s),
+        max(-1 * var(--inset) * var(--s), 100cqw - (1 - var(--inset)) * var(--s))
+    );
+    top: clamp(
+        min(-1 * var(--inset) * var(--s), 100cqh - (1 - var(--inset)) * var(--s)),
+        50cqh - var(--bcy) * var(--s),
+        max(-1 * var(--inset) * var(--s), 100cqh - (1 - var(--inset)) * var(--s))
+    );
+}
+
+/* A zero-size anchor on the exact spot: the dot is centred on it and the
+   label hangs off whichever side faces into the view. */
+.geoMarker {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: 1;
+}
+
+.geoMarker > .markerDot {
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.geoMarker > .markerLabel {
+    position: absolute;
+    top: 0;
+    left: calc(max(0.85 * var(--map-u), 7px) + 0.4 * var(--map-u));
+    transform: translateY(-50%);
+}
+
+.geoMarkerLeft > .markerLabel {
+    left: auto;
+    right: calc(max(0.85 * var(--map-u), 7px) + 0.4 * var(--map-u));
+}
+
+.geoScale {
+    position: absolute;
+    left: var(--map-u);
+    bottom: var(--map-u);
+    z-index: 2;
+    margin: 0;
+    padding: calc(0.3 * var(--map-u)) calc(0.5 * var(--map-u));
+    background: rgb(237 230 215 / 0.85);
+}
+
+.geoScale .scaleTrack {
+    width: calc(var(--frac) * var(--s));
+}
+
+/* The bar can be short: show only the end labels ("0", "20 km"), and let
+   the row grow past the bar rather than overlap them. */
+.geoScale .scaleLabels {
+    gap: calc(0.6 * var(--map-u));
+}
+
+.geoScale .scaleLabels > span:not(:first-child, :last-child) {
+    display: none;
+}
+
+.geoScale .scaleLabels > span {
+    white-space: nowrap;
+}
+
+@container archive-sheet (max-width: 700px) {
     .markerLabel {
-        font-size: 5.5cqw;
+        font-size: calc(5.5 * var(--map-u));
     }
 
     .scaleLabels {
-        font-size: 3.6cqw;
+        font-size: calc(3.6 * var(--map-u));
+    }
+
+    /* Rows are content-sized here, so the frame's height would otherwise
+       only come from min-height -- not definite, and 100cqh resolves to 0. */
+    .geoFrame {
+        flex: none;
+        height: 60cqw;
     }
 }

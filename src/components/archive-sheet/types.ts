@@ -57,10 +57,16 @@ export interface SpecimensBlock extends BlockBase {
 }
 
 export interface MapMarker {
+    /**
+     * Real-world position, latitude first: "54.597, -5.930",
+     * "54.6N 5.9W" or "54°35′49″N 5°55′48″W". When every marker has one,
+     * the map zooms and pans to fit them (see geoMap.ts) and x/y are ignored.
+     */
+    coords?: string;
     /** Percentage across the map image, 0-100. */
-    x: number;
+    x?: number;
     /** Percentage down the map image, 0-100. */
-    y: number;
+    y?: number;
     label: string;
 }
 
@@ -77,6 +83,7 @@ export interface MapBlock extends BlockBase {
     alt: string;
     title?: string;
     markers?: MapMarker[];
+    /** Ignored when the markers use `coords` -- the scale is computed. */
     scale?: MapScale;
     caption?: string;
 }

@@ -64,14 +64,13 @@ const baseBlocks: Block[] = [
     {
         id: "site-map",
         kind: "map",
-        src: "/photos/photo-plinth.jpg",
+        src: "/photos/site-map.jpg",
         alt: "Site map of Ulster Moss",
         title: "Site map",
         markers: [
-            { x: 30, y: 40, label: "Fragment, Ulster Moss" },
-            { x: 62, y: 58, label: "Vessel, partial" },
+            { coords: "54.60, -6.20", label: "Fragment, Ulster Moss" },
+            { coords: "54.52, -6.05", label: "Vessel, partial" },
         ],
-        scale: { max: 200, unit: "m", steps: 4 },
         caption: "surveyed grid, 1987",
         weight: 1.5,
         aspect: 1.6,
@@ -177,11 +176,10 @@ const templateBlocks: Block[] = [
     {
         id: "tpl-map",
         kind: "map",
-        src: "/photos/photo-plinth.jpg",
+        src: "/photos/site-map.jpg",
         alt: "Site map of Ulster Moss",
         title: "Site map",
-        markers: [{ x: 45, y: 50, label: "Fragment, Ulster Moss" }],
-        scale: { max: 200, unit: "m" },
+        markers: [{ coords: "54.6N 6.2W", label: "Fragment, Ulster Moss" }],
     },
     {
         id: "tpl-stamp",

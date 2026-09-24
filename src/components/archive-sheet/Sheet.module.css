@@ -8,6 +8,9 @@
 
 .sheet {
     container-type: inline-size;
+    /* Named so blocks nested in their own containers (the geo map) can
+       still query the sheet's width. */
+    container-name: archive-sheet;
     --as-paper: #ede6d7;
     --as-ink: #22201c;
     --as-rule: rgb(34 32 28 / 0.4);

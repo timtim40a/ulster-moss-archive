@@ -56,14 +56,13 @@ const blocks: Block[] = [
     {
         id: "site-map",
         kind: "map",
-        src: "/photos/photo-plinth.jpg",
+        src: "/photos/site-map.jpg",
         alt: "Site map of Ulster Moss",
         title: "Site map",
         markers: [
-            { x: 30, y: 40, label: "Fragment, Ulster Moss" },
-            { x: 62, y: 58, label: "Vessel, partial" },
+            { coords: "54°36′N 6°12′W", label: "Fragment, Ulster Moss" },
+            { coords: "51.897, -8.470", label: "Comparable find, Cork" },
         ],
-        scale: { max: 200, unit: "m", steps: 4 },
         caption: "surveyed grid, 1987",
         weight: 1.5,
         aspect: 1.6,
