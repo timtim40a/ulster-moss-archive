@@ -1,0 +1,38 @@
+/* no border/shadow on the card itself; only the photo frames get one */
+.card {
+  display: flex;
+  gap: var(--space-6);
+  background-color: var(--paper);
+  background-image: var(--grain);
+  background-blend-mode: multiply;
+  color: var(--ink);
+  padding: var(--space-4) 0;
+  flex-wrap: wrap;
+}
+.content { flex: 1 1 260px; min-width: 220px; }
+.title { margin: 0 0 var(--space-3); }
+.rows { border-top: 1px solid var(--ink); }
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--ink);
+}
+.rowText { display: block; }
+.rowLabel { flex: 0 0 auto; white-space: nowrap; }
+.rowValue { text-align: right; }
+/* .body here is the shared global typography utility (tokens.css), not a
+   class of this module -- it's applied directly in Card.tsx's JSX. */
+.rowText :global(.body) { display: block; text-align: left; }
+
+.photos { flex: 1 1 340px; min-width: 260px; display: flex; flex-direction: column; gap: var(--space-3); }
+.frame { border: 1px solid var(--ink); border-radius: var(--button-radius); overflow: hidden; line-height: 0; }
+.frame img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.photo { margin: 0; }
+.photoFocus .frame { aspect-ratio: 4 / 3; }
+.secondary { display: flex; gap: var(--space-3); }
+.photoSecondary { flex: 1 1 0; min-width: 0; }
+.photoSecondary .frame { aspect-ratio: 1 / 1; }
+.photoCaption { color: var(--ink); margin: var(--space-1) 0 0; }

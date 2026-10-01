@@ -1,0 +1,12 @@
+.header {
+  background-color: var(--paper);
+  background-image: var(--grain);
+  background-blend-mode: multiply;
+  color: var(--ink);
+  padding: var(--space-6) var(--space-6) var(--space-4);
+}
+.title { margin: 0 0 var(--space-3); }
+.rule { border: none; border-top: 1px solid var(--ink); margin: 0 0 var(--space-3); }
+.navList { display: flex; gap: var(--space-4); flex-wrap: wrap; margin: 0; padding: 0; list-style: none; }
+.navLink { color: var(--ink); text-decoration: none; text-transform: uppercase; padding-bottom: 2px; border-bottom: 1px solid transparent; }
+.navLink:hover, .navLink:focus-visible { border-bottom-color: var(--ink); }

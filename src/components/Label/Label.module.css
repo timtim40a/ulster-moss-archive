@@ -1,0 +1,11 @@
+.label {
+  display: inline-block;
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--ink);
+  border-radius: var(--button-radius);
+  transform: rotate(-2deg);
+  box-shadow: var(--general-shadow);
+  text-transform: uppercase;
+}
+.plain { background: var(--paper); color: var(--ink); }
+.accent { background: var(--accent-lavender); color: var(--on-accent-lavender); border-color: var(--accent-lavender); }

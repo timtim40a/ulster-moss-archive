@@ -1,0 +1,4 @@
+.photocard { margin: 0; }
+.frame { border: 1px solid var(--ink); border-radius: var(--button-radius); overflow: hidden; line-height: 0; aspect-ratio: 4 / 3; }
+.frame img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.photoCaption { color: var(--ink); margin: var(--space-2) 0 0; }
