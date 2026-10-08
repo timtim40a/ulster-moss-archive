@@ -1,0 +1,83 @@
+/*
+ * HomePhotos/3.png (2304×1560) holds the photo at x 0–1288 and the etching
+ * at x 1288–2304, y 855–1560. The etching sits lower there than in the PDF,
+ * where it would run into the paragraphs, so each part gets its own box.
+ */
+
+/* 1288 / 1560 of the section height = 58.38% of its width. */
+.photo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 58.38%;
+    height: 100%;
+}
+
+/* Window at the PDF's etching slot, at the etching's own 1016 / 705 ratio. */
+.etching {
+    position: absolute;
+    left: 64%;
+    top: 70.5%;
+    width: 27%;
+    height: 26.5%;
+    overflow: clip;
+}
+
+/* The whole composite, scaled and shifted so its etching fills the window. */
+.etchingSheet {
+    position: absolute;
+    left: -126.77%;
+    top: -121.28%;
+    width: 226.77%;
+    height: 221.28%;
+}
+
+.quote {
+    position: absolute;
+    z-index: 1;
+    left: 64%;
+    top: 16%;
+    width: 29%;
+    font-family: var(--font-heading);
+    font-size: clamp(0.75rem, 1.68vw, 4.5rem);
+    line-height: 1.45;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+}
+
+.text {
+    position: absolute;
+    z-index: 1;
+    left: 64%;
+    top: 29.5%;
+    width: 28.5%;
+    color: var(--ink);
+}
+
+.paragraph {
+    margin-bottom: 1.33em;
+    font-family: var(--font-body);
+    font-size: clamp(0.5rem, 1vw, 2.5rem);
+    line-height: 1.33;
+}
+
+@media (max-width: 767px) {
+    .quote,
+    .text {
+        position: static;
+        width: calc(100% - 2 * var(--space-6));
+    }
+
+    .quote {
+        font-size: clamp(1.125rem, 5vw, 1.5rem);
+    }
+
+    .paragraph {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .paragraph:last-child {
+        margin-bottom: var(--space-12);
+    }
+}
