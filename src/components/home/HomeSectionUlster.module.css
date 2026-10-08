@@ -1,0 +1,88 @@
+/*
+ * In HomePhotos/2.png the inset photo spans 25%–87.5% of the height (35%–89.5%
+ * in the PDF), so the hashtags and title keep the PDF's relation to the inset:
+ * hashtags ~11% above it, title glyphs starting at its top edge.
+ */
+.tags {
+    position: absolute;
+    z-index: 1;
+    left: 8%;
+    top: 14%;
+    list-style: none;
+    font-family: var(--font-body);
+    font-size: clamp(0.5rem, 0.9vw, 2.5rem);
+    line-height: 1.45;
+    color: var(--ink);
+}
+
+.title {
+    position: absolute;
+    z-index: 1;
+    left: 8.5%;
+    top: 23.5%;
+    white-space: nowrap;
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 6.2vw, 16rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.155em;
+    color: var(--paper);
+    text-shadow: 0 0 0.25em var(--ink);
+}
+
+.journal {
+    position: absolute;
+    z-index: 1;
+    left: 58%;
+    top: 70.5%;
+    width: 28.5%;
+    color: var(--paper);
+    text-shadow: 0 0 0.4em var(--ink), 0 0 0.15em var(--ink);
+}
+
+.journalHeading {
+    font-family: var(--font-heading);
+    font-size: clamp(0.75rem, 1.5vw, 4rem);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+}
+
+.journalEntry {
+    margin-top: 1.4em;
+    font-family: var(--font-body);
+    font-size: clamp(0.5rem, 1vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+@media (max-width: 767px) {
+    .tags,
+    .title,
+    .journal {
+        position: static;
+        width: calc(100% - 2 * var(--space-6));
+        color: var(--ink);
+        text-shadow: none;
+    }
+
+    .tags {
+        font-size: 14px;
+    }
+
+    .title {
+        white-space: normal;
+        font-size: clamp(1.75rem, 8vw, 3rem);
+    }
+
+    .journalHeading {
+        font-size: 18px;
+    }
+
+    .journalEntry {
+        margin-top: var(--space-3);
+        margin-bottom: var(--space-12);
+        font-size: 15px;
+        line-height: 1.6;
+    }
+}
