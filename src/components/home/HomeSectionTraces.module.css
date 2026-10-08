@@ -1,0 +1,67 @@
+/*
+ * The cut-out (HomePhotos/1.png) is cropped tighter than the PDF collage, so it
+ * is scaled past the section edges until its mirror lines up with the PDF's:
+ * mirror centre at 44% / 48%, left rock cut by the page edge.
+ */
+.collage {
+    position: absolute;
+    left: -52.8%;
+    top: 9.3%;
+    width: 166%;
+    height: 92.2%;
+}
+
+.title {
+    position: absolute;
+    z-index: 1;
+    left: 17%;
+    top: 6%;
+    width: 30%;
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 4.2vw, 10rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+}
+
+.text {
+    position: absolute;
+    z-index: 1;
+    left: 17%;
+    font-family: var(--font-body);
+    font-size: clamp(0.5rem, 2vw, 5rem);
+    line-height: 1.34;
+    color: var(--ink);
+}
+
+.first {
+    top: 20.5%;
+    width: 55%;
+}
+
+.second {
+    top: 73%;
+    width: 56%;
+}
+
+@media (max-width: 767px) {
+    .title,
+    .text {
+        position: static;
+        width: calc(100% - 2 * var(--space-6));
+    }
+
+    .title {
+        font-size: clamp(1.75rem, 8vw, 3rem);
+    }
+
+    .text {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .second {
+        margin-bottom: var(--space-12);
+    }
+}

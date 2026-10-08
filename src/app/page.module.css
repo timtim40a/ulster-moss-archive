@@ -1,24 +1,14 @@
+/*
+ * Home only: the sections run flush edge to edge between Header and Footer,
+ * so this wrapper sets no padding, margin, gap or max-width of its own.
+ */
 .main {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-12);
-  flex: 1;
-  max-width: 960px;
-  width: 100%;
-  margin: 0 auto;
-  padding: var(--space-12) var(--space-6);
-}
-
-.lead {
-  max-width: 44ch;
-}
-
-.objects {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-8);
-}
-
-.tag {
-  align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+    background-color: var(--paper);
+    background-image: url("/paper_texture1.jpeg");
+    background-size: contain;
+    background-repeat: repeat;
 }

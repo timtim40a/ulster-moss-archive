@@ -1,0 +1,55 @@
+/*
+ * Shared frames for the Home sections. Each section is one PDF page at full
+ * viewport width, keeping the A-series page ratio. Everything inside is placed
+ * with percentages of the section, so the whole page scales as one unit.
+ */
+
+.portrait {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1.4142;
+    overflow: clip;
+}
+
+.landscape {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1.4142 / 1;
+    overflow: clip;
+}
+
+/* Picture layer: covers the whole section, text layers sit above it. */
+.stage {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: clip;
+}
+
+/*
+ * Below 768px the overlay layout is unreadable: the picture layer keeps the
+ * page ratio and the section's text blocks drop into normal flow after it.
+ */
+@media (max-width: 767px) {
+    .portrait,
+    .landscape {
+        aspect-ratio: auto;
+        display: grid;
+        justify-items: center;
+        row-gap: var(--space-6);
+    }
+
+    .stage {
+        position: relative;
+        inset: auto;
+        width: 100%;
+    }
+
+    .portrait > .stage {
+        aspect-ratio: 1 / 1.4142;
+    }
+
+    .landscape > .stage {
+        aspect-ratio: 1.4142 / 1;
+    }
+}
