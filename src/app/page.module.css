@@ -1,7 +1,8 @@
 /*
  * Home is a 1:1 adaptation of the three-page PDF. Every position below is the
  * PDF's own placement (InDesign, pt) divided by its page size, so overlays sit
- * in % of their section and fonts scale with vw. Both PDF fonts advance 0.6em
+ * in % of their section and fonts scale with cqw of the page column, which
+ * stops growing at the site's 1440px max-width. Both PDF fonts advance 0.6em
  * per glyph (the local Letter Gothic advances 0.5em, so it gets 0.1em tracking),
  * so text widths are written as "N characters" in % to reproduce the PDF's
  * line breaks.
@@ -13,6 +14,7 @@
     display: block;
     flex: 1;
     width: 100%;
+    container-type: inline-size;
 }
 
 /* ---- Shared section frame --------------------------------------------- */
@@ -90,7 +92,7 @@
     width: 30%;
     font-family: var(--font-heading);
     letter-spacing: 0.1em;
-    font-size: clamp(1rem, 4.368vw, 9rem);
+    font-size: clamp(1rem, 4.368cqw, 9rem);
     font-weight: 400;
     line-height: 1.0769;
 }
@@ -101,7 +103,7 @@
     z-index: 1;
     left: 17.387%;
     font-family: var(--font-body);
-    font-size: clamp(0.5rem, 2.016vw, 4rem);
+    font-size: clamp(0.5rem, 2.016cqw, 4rem);
     line-height: 1.3333;
     hyphens: auto;
 }
@@ -183,7 +185,7 @@
     list-style: none;
     white-space: nowrap;
     font-family: var(--font-body);
-    font-size: clamp(0.4rem, 1.008vw, 2.5rem);
+    font-size: clamp(0.4rem, 1.008cqw, 2.5rem);
     line-height: 1.3333;
 }
 
@@ -196,7 +198,7 @@
     white-space: nowrap;
     font-family: var(--font-heading);
     letter-spacing: 0.1em;
-    font-size: clamp(1.5rem, 6.72vw, 14rem);
+    font-size: clamp(1.5rem, 6.72cqw, 14rem);
     font-weight: 400;
     line-height: 1;
     color: var(--paper);
@@ -218,7 +220,7 @@
 .ulsterJournalHeading {
     font-family: var(--font-heading);
     letter-spacing: 0.1em;
-    font-size: clamp(0.6rem, 1.512vw, 3.5rem);
+    font-size: clamp(0.6rem, 1.512cqw, 3.5rem);
     font-weight: 400;
     line-height: 1;
 }
@@ -227,7 +229,7 @@
 .ulsterJournalEntry {
     margin-top: 1.6563em;
     font-family: var(--font-body);
-    font-size: clamp(0.4rem, 1.008vw, 2.5rem);
+    font-size: clamp(0.4rem, 1.008cqw, 2.5rem);
     font-weight: 700;
     line-height: 1.3333;
     hyphens: auto;
@@ -289,7 +291,7 @@
     width: 29.73%;
     font-family: var(--font-heading);
     letter-spacing: 0.1em;
-    font-size: clamp(0.6rem, 1.68vw, 4rem);
+    font-size: clamp(0.6rem, 1.68cqw, 4rem);
     line-height: 1.4;
 }
 
@@ -301,7 +303,7 @@
     top: 29.41%;
     width: 28.73%;
     font-family: var(--font-body);
-    font-size: clamp(0.4rem, 1.008vw, 2.5rem);
+    font-size: clamp(0.4rem, 1.008cqw, 2.5rem);
     line-height: 1.3333;
 }
 

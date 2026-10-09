@@ -1,5 +1,7 @@
+/* Outside the 1440px site column the page is dark. */
 html {
   height: 100%;
+  background-color: var(--ink);
 }
 
 html,
@@ -9,6 +11,9 @@ body {
 }
 
 body {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
   min-height: 100%;
   display: flex;
   flex-direction: column;

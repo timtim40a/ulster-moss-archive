@@ -12,7 +12,7 @@ export default function Home() {
                         <HomeImage
                             src="/HomePhotos/1.png"
                             alt="Circular mirror framed by white biomorphic fragments and moss, set among barnacled coastal rocks"
-                            sizes="159vw"
+                            sizes="(min-width: 1440px) 2290px, 159vw"
                             preload
                             className={styles.shadow}
                         />
@@ -21,11 +21,11 @@ export default function Home() {
                         <HomeImage
                             src={journalImage("малі10.png")}
                             alt="Hand-drawn map of the route from Lough Sladdamore to Sheephaven Bay"
-                            sizes="23vw"
+                            sizes="(min-width: 1440px) 331px, 23vw"
                         />
                     </div>
                     <div className={styles.tracesScale}>
-                        <HomeImage src={journalImage("мала21.png")} alt="" sizes="23vw" />
+                        <HomeImage src={journalImage("мала21.png")} alt="" sizes="(min-width: 1440px) 331px, 23vw" />
                     </div>
                 </div>
 
@@ -53,7 +53,7 @@ export default function Home() {
                             <HomeImage
                                 src={fullPhoto("IMG_9253-2.png")}
                                 alt="Large round mirror held by white sculptural fragments and moss against dark wet rock"
-                                sizes="94vw"
+                                sizes="(min-width: 1440px) 1354px, 94vw"
                             />
                         </div>
                     </div>
@@ -62,12 +62,12 @@ export default function Home() {
                             <HomeImage
                                 src="/HomePhotos/2.png"
                                 alt="Small sculptural mirror leaning against a weathered boulder among coastal rocks"
-                                sizes="114vw"
+                                sizes="(min-width: 1440px) 1642px, 114vw"
                             />
                         </div>
                     </div>
                     <div className={styles.ulsterScale}>
-                        <HomeImage src={journalImage("мала21.png")} alt="" sizes="12vw" />
+                        <HomeImage src={journalImage("мала21.png")} alt="" sizes="(min-width: 1440px) 173px, 12vw" />
                     </div>
                 </div>
 
@@ -101,7 +101,7 @@ export default function Home() {
                             <HomeImage
                                 src="/HomePhotos/3.png"
                                 alt="Hands shaping a plaster mirror frame on a wooden worktable, beside specimen sketches A, B and F01"
-                                sizes="105vw"
+                                sizes="(min-width: 1440px) 1512px, 105vw"
                             />
                         </div>
                     </div>
@@ -110,7 +110,7 @@ export default function Home() {
                             <HomeImage
                                 src="/HomePhotos/3.png"
                                 alt="Pencil etching of coastal cliffs and sea caves, viewed north-east from the dune ridge at Maghera Strand, Co. Donegal"
-                                sizes="72vw"
+                                sizes="(min-width: 1440px) 1037px, 72vw"
                             />
                         </div>
                     </div>
