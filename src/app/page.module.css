@@ -1,29 +1,161 @@
 /*
- * Home only: the sections run flush edge to edge between Header and Footer,
- * so this wrapper sets no padding, margin, gap or max-width of its own.
+ * Home is a 1:1 adaptation of the three-page PDF. Every position below is the
+ * PDF's own placement (InDesign, pt) divided by its page size, so overlays sit
+ * in % of their section and fonts scale with vw. Courier New and Letter Gothic
+ * both advance 0.6em per glyph, so text widths are written as "N characters"
+ * in % to reproduce the PDF's line breaks.
+ *
+ * The Home wrapper sets no padding, margin, gap or max-width of its own, so the
+ * sections run flush between Header and Footer. Other routes keep their own .main.
  */
 .main {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    display: block;
     flex: 1;
     width: 100%;
-    background-color: var(--paper);
 }
 
-/*
- * One continuous sheet of paper behind all three sections: fine grain (g),
- * faint horizontal fibres (f, stretched noise) and a soft vignette over the
- * whole page. The SVG tiles seamlessly (stitchTiles) and renders once as an image.
- */
-.main::before {
-    content: "";
+/* ---- Shared section frame --------------------------------------------- */
+
+.section {
+    position: relative;
+    width: 100%;
+    overflow: clip;
+    background-color: var(--paper);
+    background-image: url("/paper_texture1.jpeg");
+    background-size: cover;
+    background-position: center;
+    color: var(--ink);
+}
+
+/* A4 portrait page: 595.276 x 841.89 pt */
+.portrait {
+    aspect-ratio: 1 / 1.4142;
+}
+
+/* A4 landscape page: 1190.55 x 841.89 pt */
+.landscape {
+    aspect-ratio: 1.4142 / 1;
+}
+
+/* All pictures of a section; text layers sit above it. */
+.stage {
     position: absolute;
     inset: 0;
     z-index: 0;
-    pointer-events: none;
-    mix-blend-mode: multiply;
-    background-image:
-        radial-gradient(ellipse at center, transparent 55%, color-mix(in srgb, var(--ink) 7%, transparent)),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.015 0.35' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.12'/%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='0.06'/%3E%3C/svg%3E");
+}
+
+/* Positioned box an image fills; also used as a crop window or a plate inside one. */
+.tracesCollage,
+.tracesMap,
+.tracesScale {
+    position: absolute;
+}
+
+.shadow {
+    filter: drop-shadow(var(--general-shadow));
+}
+
+/* ---- Section 1: "Traces of Presence around..." ------------------------- */
+
+/* 1.png at 0.1682 pt/px, its left rock cropped by the page edge as in the PDF. */
+.tracesCollage {
+    left: -48.532%;
+    top: 12.757%;
+    width: 158.414%;
+    height: 87.954%;
+}
+
+.tracesMap {
+    left: 71.644%;
+    top: 4.057%;
+    width: 22.667%;
+    height: 6.36%;
+}
+
+/* The bar sits in the bottom of a transparent canvas; the box is the whole canvas. */
+.tracesScale {
+    left: 71.659%;
+    top: 83.729%;
+    width: 22.605%;
+    height: 12.104%;
+}
+
+/* Letter Gothic 26/28 pt */
+.tracesTitle {
+    position: absolute;
+    z-index: 1;
+    left: 16.631%;
+    top: 5.884%;
+    width: 30%;
+    font-family: var(--font-heading);
+    font-size: clamp(1rem, 4.368vw, 9rem);
+    font-weight: 400;
+    line-height: 1.0769;
+}
+
+/* Courier New 12/16 pt */
+.tracesText {
+    position: absolute;
+    z-index: 1;
+    left: 17.387%;
+    font-family: var(--font-body);
+    font-size: clamp(0.5rem, 2.016vw, 4rem);
+    line-height: 1.3333;
+    hyphens: auto;
+}
+
+/* 45.5 characters */
+.tracesFirst {
+    top: 20.39%;
+    width: 55.034%;
+}
+
+/* 46.5 characters */
+.tracesSecond {
+    top: 72.772%;
+    width: 56.243%;
+}
+
+/* ---- Below 768px: pictures keep their ratio, text drops into flow ------ */
+
+@media (max-width: 767px) {
+    .section {
+        display: grid;
+        grid-template-columns: var(--space-6) minmax(0, 1fr) var(--space-6);
+        row-gap: var(--space-4);
+        aspect-ratio: auto;
+    }
+
+    .stage {
+        position: relative;
+        grid-column: 1 / -1;
+    }
+
+    .portrait .stage {
+        aspect-ratio: 1 / 1.4142;
+    }
+
+    .landscape .stage {
+        aspect-ratio: 1.4142 / 1;
+    }
+
+    .tracesTitle,
+    .tracesText {
+        position: static;
+        grid-column: 2;
+        width: auto;
+    }
+
+    .tracesTitle {
+        font-size: 2.25rem;
+    }
+
+    .tracesText {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .section > p:last-child {
+        margin-bottom: var(--space-12);
+    }
 }

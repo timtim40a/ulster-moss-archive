@@ -4,16 +4,15 @@ import styles from "./HomeImage.module.css";
 export interface HomeImageProps {
     src: string;
     alt: string;
-    // Rendered width relative to the viewport, e.g. "100vw" for a base picture.
-    sizes: string;
-    // Which part of the picture stays in view when `cover` crops it.
-    objectPosition?: string;
-    // Only the first section's picture is preloaded.
+    /** Rendered width relative to the viewport, e.g. "158vw" for a plate wider than the screen. */
+    sizes?: string;
+    /** Only the first picture on the page. */
     preload?: boolean;
+    className?: string;
 }
 
-// Fills its nearest positioned ancestor, which decides where and how big the picture is.
-export function HomeImage({ src, alt, sizes, objectPosition, preload = false }: HomeImageProps) {
+/** A Home page picture: fills its positioned parent and crops with object-fit: cover. */
+export function HomeImage({ src, alt, sizes = "100vw", preload = false, className }: HomeImageProps) {
     return (
         <Image
             src={src}
@@ -21,8 +20,7 @@ export function HomeImage({ src, alt, sizes, objectPosition, preload = false }: 
             fill
             sizes={sizes}
             preload={preload}
-            className={styles.image}
-            style={objectPosition ? { objectPosition } : undefined}
+            className={className ? `${styles.image} ${className}` : styles.image}
         />
     );
 }
