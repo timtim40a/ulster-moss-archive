@@ -90,6 +90,52 @@ export default function Home() {
                     </p>
                 </div>
             </section>
+
+            <section
+                className={`${styles.section} ${styles.landscape}`}
+                aria-label="I am finding these objects more and more often"
+            >
+                <div className={styles.stage}>
+                    <div className={styles.studioPhoto}>
+                        <div className={styles.studioPhotoPlate}>
+                            <HomeImage
+                                src="/HomePhotos/3.png"
+                                alt="Hands shaping a plaster mirror frame on a wooden worktable, beside specimen sketches A, B and F01"
+                                sizes="105vw"
+                            />
+                        </div>
+                    </div>
+                    <div className={styles.studioEtching}>
+                        <div className={styles.studioEtchingPlate}>
+                            <HomeImage
+                                src="/HomePhotos/3.png"
+                                alt="Pencil etching of coastal cliffs and sea caves, viewed north-east from the dune ridge at Maghera Strand, Co. Donegal"
+                                sizes="72vw"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <blockquote className={styles.studioQuote}>
+                    “I am finding these objects more and more often. Or are they finding me?”
+                </blockquote>
+                <div className={styles.studioText}>
+                    <p>
+                        The textures themselves - objects - belong to a rare breed of unknown, probably unearthly
+                        origin. Its fragments were left in Ireland long before the emergence of our civilisation or
+                        its coming in now; we can’t answer yet. Artefacts are still found among forests, bogs and
+                        rocky landscapes. Their surface resembles at once an old bone, a fragment of ancient
+                        sculpture and the biological remains of creatures that never existed in our world.
+                    </p>
+                    <p>
+                        The moss growing on the artefacts may not just be part of the local nature, but evidence of
+                        their slow awakening. I collect the found fragments, reconstruct them and combine them with
+                        mirrors. The mirror surface here functions as a portal: it releases the energy accumulated
+                        in the artefacts and directs it to alternative worlds - perhaps where they once came to
+                        Ireland.
+                    </p>
+                </div>
+            </section>
         </main>
     );
 }

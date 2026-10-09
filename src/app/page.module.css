@@ -233,6 +233,83 @@
     hyphens: auto;
 }
 
+/* ---- Section 3: "I am finding these objects..." ------------------------ */
+
+/*
+ * 3.png holds the studio photo (specimen sketches A/B and F01 already placed
+ * on it) and, at its bottom right, the etching. The photo window shows it at
+ * 0.5397 pt/px from the top-left; the etching window shows the same file at
+ * 0.3701 pt/px so the etching lands in its PDF frame below the paragraphs.
+ */
+.studioPhoto,
+.studioEtching {
+    position: absolute;
+    overflow: clip;
+}
+
+.studioPhotoPlate,
+.studioEtchingPlate {
+    position: absolute;
+}
+
+.studioPhoto {
+    left: 0;
+    top: 0;
+    width: 58.208%;
+    height: 100%;
+}
+
+.studioPhotoPlate {
+    left: 0;
+    top: 0;
+    width: 179.43%;
+    height: 100%;
+}
+
+.studioEtching {
+    left: 63.928%;
+    top: 72.407%;
+    width: 28.81%;
+    height: 24.226%;
+}
+
+.studioEtchingPlate {
+    left: -148.34%;
+    top: -155.37%;
+    width: 248.61%;
+    height: 283.1%;
+}
+
+/* Letter Gothic 20/28 pt, 29.5 characters */
+.studioQuote {
+    position: absolute;
+    z-index: 1;
+    left: 63.923%;
+    top: 16.313%;
+    width: 29.73%;
+    font-family: var(--font-heading);
+    letter-spacing: 0.1em;
+    font-size: clamp(0.6rem, 1.68vw, 4rem);
+    line-height: 1.4;
+}
+
+/* Courier New 12/16 pt, 47.5 characters; one blank line between paragraphs */
+.studioText {
+    position: absolute;
+    z-index: 1;
+    left: 63.946%;
+    top: 29.41%;
+    width: 28.73%;
+    font-family: var(--font-body);
+    font-size: clamp(0.4rem, 1.008vw, 2.5rem);
+    line-height: 1.3333;
+}
+
+.studioText p {
+    margin-bottom: 1.3333em;
+    hyphens: auto;
+}
+
 /* ---- Below 768px: pictures keep their ratio, text drops into flow ------ */
 
 @media (max-width: 767px) {
@@ -260,7 +337,9 @@
     .tracesText,
     .ulsterTags,
     .ulsterTitle,
-    .ulsterJournal {
+    .ulsterJournal,
+    .studioQuote,
+    .studioText {
         position: static;
         grid-column: 2;
         width: auto;
@@ -289,6 +368,19 @@
     }
 
     .ulsterJournal p:last-child {
+        margin-bottom: var(--space-12);
+    }
+
+    .studioQuote {
+        font-size: 1.25rem;
+    }
+
+    .studioText {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .studioText p:last-child {
         margin-bottom: var(--space-12);
     }
 
