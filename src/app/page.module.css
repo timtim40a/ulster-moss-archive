@@ -1,20 +1,34 @@
 /*
  * Home is a 1:1 adaptation of the three-page PDF. Every position below is the
  * PDF's own placement (InDesign, pt) divided by its page size, so overlays sit
- * in % of their section and fonts scale with cqw of the page column, which
- * stops growing at the site's 1440px max-width. Both PDF fonts advance 0.6em
+ * in % of their section and fonts scale with vw. Both PDF fonts advance 0.6em
  * per glyph (the local Letter Gothic advances 0.5em, so it gets 0.1em tracking),
  * so text widths are written as "N characters" in % to reproduce the PDF's
  * line breaks.
  *
  * The Home wrapper sets no padding, margin, gap or max-width of its own, so the
  * sections run flush between Header and Footer. Other routes keep their own .main.
+ *
+ * One paper background runs behind all three sections, and every text block
+ * takes its size from the steps below, so type is consistent page-wide. The
+ * one deliberate exception is the section 2 title (--home-feature), which keeps
+ * the PDF's 80 pt so it runs across both photos.
  */
-.main {
+.homeWrapper {
+    --home-text: clamp(0.5rem, 1.15vw, 2.75rem);
+    --home-subhead: clamp(0.75rem, 1.68vw, 4rem);
+    --home-title: clamp(1.5rem, 4.368vw, 9rem);
+    --home-feature: clamp(1.5rem, 6.72vw, 14rem);
+    --home-text-leading: 1.3333;
+
+    position: relative;
     display: block;
     flex: 1;
     width: 100%;
-    container-type: inline-size;
+    background-color: var(--paper);
+    background-image: var(--paper-texture);
+    background-size: var(--paper-texture-size);
+    background-blend-mode: multiply;
 }
 
 /* ---- Shared section frame --------------------------------------------- */
@@ -23,10 +37,6 @@
     position: relative;
     width: 100%;
     overflow: clip;
-    background-color: var(--paper);
-    background-image: url("/paper_texture1.jpeg");
-    background-size: cover;
-    background-position: center;
     color: var(--ink);
 }
 
@@ -92,29 +102,27 @@
     width: 30%;
     font-family: var(--font-heading);
     letter-spacing: 0.1em;
-    font-size: clamp(1rem, 4.368cqw, 9rem);
+    font-size: var(--home-title);
     font-weight: 400;
     line-height: 1.0769;
 }
 
-/* Courier New 12/16 pt */
+/* Courier New, same size as the body text in the other sections */
 .tracesText {
     position: absolute;
     z-index: 1;
     left: 17.387%;
     font-family: var(--font-body);
-    font-size: clamp(0.5rem, 2.016cqw, 4rem);
-    line-height: 1.3333;
+    font-size: var(--home-text);
+    line-height: var(--home-text-leading);
     hyphens: auto;
 }
 
-/* 45.5 characters */
 .tracesFirst {
     top: 20.39%;
     width: 55.034%;
 }
 
-/* 46.5 characters */
 .tracesSecond {
     top: 72.772%;
     width: 56.243%;
@@ -185,8 +193,8 @@
     list-style: none;
     white-space: nowrap;
     font-family: var(--font-body);
-    font-size: clamp(0.4rem, 1.008cqw, 2.5rem);
-    line-height: 1.3333;
+    font-size: var(--home-text);
+    line-height: var(--home-text-leading);
 }
 
 /* Letter Gothic 80 pt, one line across the inset and the dark photo */
@@ -198,29 +206,29 @@
     white-space: nowrap;
     font-family: var(--font-heading);
     letter-spacing: 0.1em;
-    font-size: clamp(1.5rem, 6.72cqw, 14rem);
+    font-size: var(--home-feature);
     font-weight: 400;
     line-height: 1;
     color: var(--paper);
     text-shadow: 0 0 0.2em color-mix(in srgb, var(--ink) 45%, transparent);
 }
 
-/* 47.5 characters of 12 pt Courier New */
+/* Widened past the PDF's 28.7% so the larger body text keeps its line count */
 .ulsterJournal {
     position: absolute;
     z-index: 1;
     left: 58.208%;
     top: 70.422%;
-    width: 28.726%;
+    width: 32.5%;
     color: var(--paper);
     text-shadow: 0 0 0.3em color-mix(in srgb, var(--ink) 70%, transparent);
 }
 
-/* Letter Gothic 18 pt */
+/* Letter Gothic, same step as the pull quote */
 .ulsterJournalHeading {
     font-family: var(--font-heading);
     letter-spacing: 0.1em;
-    font-size: clamp(0.6rem, 1.512cqw, 3.5rem);
+    font-size: var(--home-subhead);
     font-weight: 400;
     line-height: 1;
 }
@@ -229,9 +237,9 @@
 .ulsterJournalEntry {
     margin-top: 1.6563em;
     font-family: var(--font-body);
-    font-size: clamp(0.4rem, 1.008cqw, 2.5rem);
+    font-size: var(--home-text);
     font-weight: 700;
-    line-height: 1.3333;
+    line-height: var(--home-text-leading);
     hyphens: auto;
 }
 
@@ -291,35 +299,93 @@
     width: 29.73%;
     font-family: var(--font-heading);
     letter-spacing: 0.1em;
-    font-size: clamp(0.6rem, 1.68cqw, 4rem);
+    font-size: var(--home-subhead);
     line-height: 1.4;
 }
 
-/* Courier New 12/16 pt, 47.5 characters; one blank line between paragraphs */
+/*
+ * One blank line between paragraphs. Widened past the PDF's 28.7% so the
+ * larger body text keeps its line count, and raised from the PDF's 29.4% so
+ * it stays clear of the etching.
+ */
 .studioText {
     position: absolute;
     z-index: 1;
     left: 63.946%;
-    top: 29.41%;
-    width: 28.73%;
+    top: 27.8%;
+    width: 33%;
     font-family: var(--font-body);
-    font-size: clamp(0.4rem, 1.008cqw, 2.5rem);
-    line-height: 1.3333;
+    font-size: var(--home-text);
+    line-height: var(--home-text-leading);
 }
 
 .studioText p {
-    margin-bottom: 1.3333em;
     hyphens: auto;
+}
+
+.studioText p + p {
+    margin-top: 1.3333em;
 }
 
 /* ---- Below 768px: pictures keep their ratio, text drops into flow ------ */
 
 @media (max-width: 767px) {
+    /* Same three steps, fixed for small screens. */
+    .homeWrapper {
+        --home-text: 1rem;
+        --home-subhead: 1.25rem;
+        --home-title: 2.25rem;
+        --home-feature: 2.25rem;
+        --home-text-leading: 1.6;
+    }
+
     .section {
         display: grid;
         grid-template-columns: var(--space-6) minmax(0, 1fr) var(--space-6);
         row-gap: var(--space-4);
         aspect-ratio: auto;
+    }
+
+    /*
+     * Section 1 overlays its picture, which spans rows 1-2. The title sits in
+     * row 1, in the collage's transparent top-left (0-28% of its height). The
+     * first paragraph starts row 2, in the transparent bottom-left (from ~77%,
+     * 0-74% wide), at the normal body size, and runs on past the picture.
+     * Row 1 ends at 77% of the picture's 141.42vw height, less the row gap.
+     */
+    .portrait {
+        grid-template-rows: calc(109vw - var(--space-4)) auto auto;
+    }
+
+    .portrait .stage {
+        grid-row: 1 / 3;
+        align-self: start;
+    }
+
+    .portrait .tracesTitle,
+    .portrait .tracesFirst {
+        left: 0;
+        top: auto;
+    }
+
+    /* Half the page wide: 9 characters of "Traces of" at 0.6em each */
+    .portrait .tracesTitle {
+        grid-row: 1;
+        position: relative;
+        top: 6vw;
+        align-self: start;
+        width: 50vw;
+        font-size: 9vw;
+    }
+
+    .portrait .tracesFirst {
+        grid-row: 2;
+        position: relative;
+        width: 66vw;
+    }
+
+    .portrait .tracesSecond {
+        grid-row: 3;
     }
 
     .stage {
@@ -355,47 +421,9 @@
         text-shadow: none;
     }
 
-    .ulsterTags,
-    .ulsterJournalEntry {
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-
-    .ulsterTitle {
-        font-size: 2.25rem;
-    }
-
-    .ulsterJournalHeading {
-        font-size: 1.25rem;
-    }
-
-    .ulsterJournal p:last-child {
-        margin-bottom: var(--space-12);
-    }
-
-    .studioQuote {
-        font-size: 1.25rem;
-    }
-
-    .studioText {
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-
+    .section > p:last-child,
+    .ulsterJournal p:last-child,
     .studioText p:last-child {
-        margin-bottom: var(--space-12);
-    }
-
-    .tracesTitle {
-        font-size: 2.25rem;
-    }
-
-    .tracesText {
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-
-    .section > p:last-child {
         margin-bottom: var(--space-12);
     }
 }

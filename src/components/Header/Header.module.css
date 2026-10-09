@@ -1,6 +1,7 @@
 .header {
   background-color: var(--paper);
-  background-image: var(--grain);
+  background-image: var(--paper-texture);
+  background-size: var(--paper-texture-size);
   background-blend-mode: multiply;
   color: var(--ink);
   padding: var(--space-6) var(--space-6) var(--space-4);

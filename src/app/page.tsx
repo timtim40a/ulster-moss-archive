@@ -5,14 +5,14 @@ import styles from "./page.module.css";
 // Web adaptation of the three-page "Ulster Moss & Artefacts" PDF: one section per page.
 export default function Home() {
     return (
-        <main className={styles.main}>
+        <main className={styles.homeWrapper}>
             <section className={`${styles.section} ${styles.portrait}`} aria-label="Traces of Presence around...">
                 <div className={styles.stage}>
                     <div className={styles.tracesCollage}>
                         <HomeImage
                             src="/HomePhotos/1.png"
                             alt="Circular mirror framed by white biomorphic fragments and moss, set among barnacled coastal rocks"
-                            sizes="(min-width: 1440px) 2290px, 159vw"
+                            sizes="159vw"
                             preload
                             className={styles.shadow}
                         />
@@ -21,11 +21,11 @@ export default function Home() {
                         <HomeImage
                             src={journalImage("малі10.png")}
                             alt="Hand-drawn map of the route from Lough Sladdamore to Sheephaven Bay"
-                            sizes="(min-width: 1440px) 331px, 23vw"
+                            sizes="23vw"
                         />
                     </div>
                     <div className={styles.tracesScale}>
-                        <HomeImage src={journalImage("мала21.png")} alt="" sizes="(min-width: 1440px) 331px, 23vw" />
+                        <HomeImage src={journalImage("мала21.png")} alt="" sizes="23vw" />
                     </div>
                 </div>
 
@@ -53,7 +53,7 @@ export default function Home() {
                             <HomeImage
                                 src={fullPhoto("IMG_9253-2.png")}
                                 alt="Large round mirror held by white sculptural fragments and moss against dark wet rock"
-                                sizes="(min-width: 1440px) 1354px, 94vw"
+                                sizes="94vw"
                             />
                         </div>
                     </div>
@@ -62,12 +62,12 @@ export default function Home() {
                             <HomeImage
                                 src="/HomePhotos/2.png"
                                 alt="Small sculptural mirror leaning against a weathered boulder among coastal rocks"
-                                sizes="(min-width: 1440px) 1642px, 114vw"
+                                sizes="114vw"
                             />
                         </div>
                     </div>
                     <div className={styles.ulsterScale}>
-                        <HomeImage src={journalImage("мала21.png")} alt="" sizes="(min-width: 1440px) 173px, 12vw" />
+                        <HomeImage src={journalImage("мала21.png")} alt="" sizes="12vw" />
                     </div>
                 </div>
 
@@ -101,7 +101,7 @@ export default function Home() {
                             <HomeImage
                                 src="/HomePhotos/3.png"
                                 alt="Hands shaping a plaster mirror frame on a wooden worktable, beside specimen sketches A, B and F01"
-                                sizes="(min-width: 1440px) 1512px, 105vw"
+                                sizes="105vw"
                             />
                         </div>
                     </div>
@@ -110,7 +110,7 @@ export default function Home() {
                             <HomeImage
                                 src="/HomePhotos/3.png"
                                 alt="Pencil etching of coastal cliffs and sea caves, viewed north-east from the dune ridge at Maghera Strand, Co. Donegal"
-                                sizes="(min-width: 1440px) 1037px, 72vw"
+                                sizes="72vw"
                             />
                         </div>
                     </div>
