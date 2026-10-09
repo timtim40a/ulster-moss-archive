@@ -3,12 +3,27 @@
  * so this wrapper sets no padding, margin, gap or max-width of its own.
  */
 .main {
+    position: relative;
     display: flex;
     flex-direction: column;
     flex: 1;
     width: 100%;
     background-color: var(--paper);
-    background-image: url("/paper_texture1.jpeg");
-    background-size: contain;
-    background-repeat: repeat;
+}
+
+/*
+ * One continuous sheet of paper behind all three sections: fine grain (g),
+ * faint horizontal fibres (f, stretched noise) and a soft vignette over the
+ * whole page. The SVG tiles seamlessly (stitchTiles) and renders once as an image.
+ */
+.main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    background-image:
+        radial-gradient(ellipse at center, transparent 55%, color-mix(in srgb, var(--ink) 7%, transparent)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.015 0.35' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.12'/%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='0.06'/%3E%3C/svg%3E");
 }

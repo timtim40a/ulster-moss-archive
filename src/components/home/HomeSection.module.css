@@ -4,8 +4,10 @@
  * with percentages of the section, so the whole page scales as one unit.
  */
 
+/* z-index 1 lifts every section above the Home wrapper's paper layer. */
 .portrait {
     position: relative;
+    z-index: 1;
     width: 100%;
     aspect-ratio: 1 / 1.4142;
     overflow: clip;
@@ -13,6 +15,7 @@
 
 .landscape {
     position: relative;
+    z-index: 1;
     width: 100%;
     aspect-ratio: 1.4142 / 1;
     overflow: clip;
