@@ -1,9 +1,10 @@
 /*
  * Home is a 1:1 adaptation of the three-page PDF. Every position below is the
  * PDF's own placement (InDesign, pt) divided by its page size, so overlays sit
- * in % of their section and fonts scale with vw. Courier New and Letter Gothic
- * both advance 0.6em per glyph, so text widths are written as "N characters"
- * in % to reproduce the PDF's line breaks.
+ * in % of their section and fonts scale with vw. Both PDF fonts advance 0.6em
+ * per glyph (the local Letter Gothic advances 0.5em, so it gets 0.1em tracking),
+ * so text widths are written as "N characters" in % to reproduce the PDF's
+ * line breaks.
  *
  * The Home wrapper sets no padding, margin, gap or max-width of its own, so the
  * sections run flush between Header and Footer. Other routes keep their own .main.
@@ -74,10 +75,10 @@
 
 /* The bar sits in the bottom of a transparent canvas; the box is the whole canvas. */
 .tracesScale {
-    left: 71.659%;
-    top: 83.729%;
-    width: 22.605%;
-    height: 12.104%;
+    left: 71.63%;
+    top: 83.66%;
+    width: 22.77%;
+    height: 12.2%;
 }
 
 /* Letter Gothic 26/28 pt */
@@ -88,6 +89,7 @@
     top: 5.884%;
     width: 30%;
     font-family: var(--font-heading);
+    letter-spacing: 0.1em;
     font-size: clamp(1rem, 4.368vw, 9rem);
     font-weight: 400;
     line-height: 1.0769;
@@ -116,6 +118,121 @@
     width: 56.243%;
 }
 
+/* ---- Section 2: "Ulster Moss&Artefacts" -------------------------------- */
+
+/*
+ * Both photos are shown as plates inside crop windows at the PDF's frames.
+ * The dark photo is the PDF's own crop of IMG_9253-2 (source px 152,1542 at
+ * 0.367 pt/px). The inset comes from the 2.png composite, whose inset
+ * (px 256-844 x 272-944) is framed slightly tighter than the PDF's, so it is
+ * scaled just enough to cover its frame.
+ */
+.ulsterBase,
+.ulsterInset {
+    position: absolute;
+    overflow: clip;
+}
+
+.ulsterBasePlate,
+.ulsterInsetPlate,
+.ulsterScale {
+    position: absolute;
+}
+
+.ulsterBase {
+    left: 25.714%;
+    top: 0;
+    width: 74.286%;
+    height: 100%;
+}
+
+.ulsterBasePlate {
+    left: -6.436%;
+    top: -67.347%;
+    width: 125.498%;
+    height: 175.78%;
+}
+
+.ulsterInset {
+    left: 8.095%;
+    top: 35.185%;
+    width: 34.694%;
+    height: 54.52%;
+}
+
+.ulsterInsetPlate {
+    left: -43.811%;
+    top: -41.858%;
+    width: 327.49%;
+    height: 165.76%;
+}
+
+.ulsterScale {
+    left: 36.32%;
+    top: 84.37%;
+    width: 11.39%;
+    height: 12.2%;
+}
+
+/* Courier New 12/16 pt */
+.ulsterTags {
+    position: absolute;
+    z-index: 1;
+    left: 7.923%;
+    top: 24.132%;
+    list-style: none;
+    white-space: nowrap;
+    font-family: var(--font-body);
+    font-size: clamp(0.4rem, 1.008vw, 2.5rem);
+    line-height: 1.3333;
+}
+
+/* Letter Gothic 80 pt, one line across the inset and the dark photo */
+.ulsterTitle {
+    position: absolute;
+    z-index: 1;
+    left: 8.316%;
+    top: 34.012%;
+    white-space: nowrap;
+    font-family: var(--font-heading);
+    letter-spacing: 0.1em;
+    font-size: clamp(1.5rem, 6.72vw, 14rem);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--paper);
+    text-shadow: 0 0 0.2em color-mix(in srgb, var(--ink) 45%, transparent);
+}
+
+/* 47.5 characters of 12 pt Courier New */
+.ulsterJournal {
+    position: absolute;
+    z-index: 1;
+    left: 58.208%;
+    top: 70.422%;
+    width: 28.726%;
+    color: var(--paper);
+    text-shadow: 0 0 0.3em color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+/* Letter Gothic 18 pt */
+.ulsterJournalHeading {
+    font-family: var(--font-heading);
+    letter-spacing: 0.1em;
+    font-size: clamp(0.6rem, 1.512vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1;
+}
+
+/* Courier New Bold 12/16 pt; first baseline 33.3 pt below the heading's */
+.ulsterJournalEntry {
+    margin-top: 1.6563em;
+    font-family: var(--font-body);
+    font-size: clamp(0.4rem, 1.008vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.3333;
+    hyphens: auto;
+}
+
 /* ---- Below 768px: pictures keep their ratio, text drops into flow ------ */
 
 @media (max-width: 767px) {
@@ -140,10 +257,39 @@
     }
 
     .tracesTitle,
-    .tracesText {
+    .tracesText,
+    .ulsterTags,
+    .ulsterTitle,
+    .ulsterJournal {
         position: static;
         grid-column: 2;
         width: auto;
+    }
+
+    /* Off the photo the light text turns back to ink. */
+    .ulsterTitle,
+    .ulsterJournal {
+        white-space: normal;
+        color: var(--ink);
+        text-shadow: none;
+    }
+
+    .ulsterTags,
+    .ulsterJournalEntry {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .ulsterTitle {
+        font-size: 2.25rem;
+    }
+
+    .ulsterJournalHeading {
+        font-size: 1.25rem;
+    }
+
+    .ulsterJournal p:last-child {
+        margin-bottom: var(--space-12);
     }
 
     .tracesTitle {
