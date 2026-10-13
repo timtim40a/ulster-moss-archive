@@ -1,0 +1,76 @@
+.journal {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.entry {
+  position: relative;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.entry p {
+  margin: 0 0 var(--space-4);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.entryDate {
+  display: block;
+  margin: 0 0 var(--space-3);
+}
+
+/* Small margin photos -- pinned beside the text like a field notebook.
+   Positioned relative to their own .entry, so they scroll with the text
+   they belong to instead of needing page-wide pixel math. */
+.marginPhoto {
+  position: absolute;
+  top: var(--space-2);
+  left: calc(100% + var(--space-8));
+  width: 150px;
+  margin: 0;
+}
+
+.marginPhotoLeft {
+  left: auto;
+  right: calc(100% + var(--space-8));
+}
+
+.marginPhoto img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  padding: var(--space-1);
+  transform: rotate(-3deg);
+}
+
+.marginPhotoLeft img {
+  transform: rotate(3deg);
+}
+
+.marginCaption {
+  display: block;
+  margin: var(--space-1) 0 0;
+  text-align: center;
+}
+
+/* Narrow viewports have no room for margin photos -- fall back to an
+   inline image ahead of the entry's text. */
+@media (max-width: 920px) {
+  .marginPhoto,
+  .marginPhotoLeft {
+    position: static;
+    width: 160px;
+    margin: 0 0 var(--space-4);
+  }
+
+  .marginPhoto img,
+  .marginPhotoLeft img {
+    transform: none;
+  }
+}

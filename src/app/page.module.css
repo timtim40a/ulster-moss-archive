@@ -25,10 +25,7 @@
     display: block;
     flex: 1;
     width: 100%;
-    background-color: var(--paper);
-    background-image: var(--paper-texture);
-    background-size: var(--paper-texture-size);
-    background-blend-mode: multiply;
+    background: transparent;
 }
 
 /* ---- Shared section frame --------------------------------------------- */
@@ -113,7 +110,7 @@
     z-index: 1;
     left: 17.387%;
     font-family: var(--font-body);
-    font-size: var(--home-text);
+    font-size: clamp(0.5rem, 1.5vw, 2.75rem);
     line-height: var(--home-text-leading);
     hyphens: auto;
 }
@@ -124,7 +121,7 @@
 }
 
 .tracesSecond {
-    top: 72.772%;
+    top: 80.772%;
     width: 56.243%;
 }
 
@@ -132,7 +129,7 @@
 
 /*
  * Both photos are shown as plates inside crop windows at the PDF's frames.
- * The dark photo is the PDF's own crop of IMG_9253-2 (source px 152,1542 at
+ * The dark photo is the PDF's own crop of IMG_9253-2 (px 152,1542 of the 3024px original at
  * 0.367 pt/px). The inset comes from the 2.png composite, whose inset
  * (px 256-844 x 272-944) is framed slightly tighter than the PDF's, so it is
  * scaled just enough to cover its frame.

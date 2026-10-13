@@ -51,7 +51,7 @@ export default function Home() {
                     <div className={styles.ulsterBase}>
                         <div className={styles.ulsterBasePlate}>
                             <HomeImage
-                                src={fullPhoto("IMG_9253-2.png")}
+                                src={fullPhoto("IMG_9253-2.jpg")}
                                 alt="Large round mirror held by white sculptural fragments and moss against dark wet rock"
                                 sizes="94vw"
                             />

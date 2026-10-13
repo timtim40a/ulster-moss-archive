@@ -1,0 +1,27 @@
+.wrap {
+  background-color: var(--accent-moss);
+  background-image: var(--grain);
+  background-blend-mode: overlay;
+  color: var(--on-accent-moss);
+  padding: var(--space-8) var(--space-6);
+}
+.content { max-width: 480px; }
+.heading { margin: 0 0 var(--space-2); }
+.blurb { margin: 0 0 var(--space-4); }
+.form { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+.field { display: flex; flex-direction: column; gap: var(--space-1); flex: 1 1 160px; }
+.fieldWide { flex-basis: 100%; }
+.field span { text-transform: uppercase; }
+.field input, .field textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--on-accent-moss);
+  color: var(--on-accent-moss);
+  font: inherit;
+  padding: var(--space-1) 0;
+}
+.field input:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; }
+/* Button is its own module, so its on-moss styling can't be reached from
+   here -- a wrapper gives the submit button the same extra nudge away
+   from the fields above it. */
+.submitRow { margin-top: var(--space-2); }
