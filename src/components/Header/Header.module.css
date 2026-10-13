@@ -7,8 +7,8 @@
 .title { margin: 0; }
 .rule { border: none; border-top: 1px solid var(--ink); margin: 0 0 var(--space-3); }
 .navList { display: flex; gap: var(--space-4); flex-wrap: wrap; margin: 0; padding: 0; list-style: none; }
-.navLink { color: var(--ink); text-decoration: none; text-transform: uppercase; padding-bottom: 2px; border-bottom: 1px solid transparent; }
-.navLink:hover, .navLink:focus-visible { border-bottom-color: var(--ink); }
+.navLink { color: var(--ink); text-decoration: none; text-transform: uppercase; padding-bottom: 2px; border-bottom: 1px solid transparent; transition: all 0.3s;}
+.navLink:hover, .navLink:focus-visible { transform: scaleY(1.1); font-weight: bold;}
 
 /* ---- Mobile menu: wavy burger, dimming backdrop, sliding paper pane ---- */
 
