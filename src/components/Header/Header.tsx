@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styles from "./Header.module.css";
 
 export interface NavItem {
@@ -12,6 +13,8 @@ export interface NavItem {
 export interface HeaderProps {
   title?: string;
   nav?: NavItem[];
+  /** Route prefix -> section name, shown after the title as "Title: Section". */
+  sections?: Record<string, string>;
 }
 
 /** One thin hand-drawn-looking wave, 26 units long, centred on y. */
@@ -36,7 +39,11 @@ function CloseIcon() {
   );
 }
 
-export function Header({ title = "Ulster Moss & Artefacts", nav = [] }: HeaderProps) {
+export function Header({ title = "Ulster Moss & Artefacts", nav = [], sections = {} }: HeaderProps) {
+  const pathname = usePathname();
+  const section = Object.entries(sections).find(
+    ([route]) => pathname === route || pathname.startsWith(route + "/")
+  )?.[1];
   const [open, setOpen] = useState(false);
   const burgerRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -69,7 +76,7 @@ export function Header({ title = "Ulster Moss & Artefacts", nav = [] }: HeaderPr
   return (
     <header className={styles.header}>
       <div className={styles.top}>
-        <div className={`${styles.title} hero-title`}>{title}</div>
+        <div className={`${styles.title} hero-title`}>{section ? `${title}: ${section}` : title}</div>
         {nav.length > 0 && (
           <button
             ref={burgerRef}

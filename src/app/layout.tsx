@@ -3,7 +3,7 @@ import { Cormorant, Cormorant_Garamond, Caveat } from "next/font/google";
 import localFont from "next/font/local";
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
-import { SITE_NAV } from "@/lib/nav";
+import { HEADER_SECTIONS, SITE_NAV } from "@/lib/nav";
 import "@/styles/tokens.css";
 import "./globals.css";
 
@@ -47,7 +47,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${cormorant.variable} ${caveat.variable} ${cormorantGaramond.variable} ${letterGothic.variable}`}
     >
       <body>
-        <Header title="Ulster Moss & Artefacts" nav={SITE_NAV} />
+        <Header title="Ulster Moss & Artefacts" nav={SITE_NAV} sections={HEADER_SECTIONS} />
         {children}
         <Footer />
       </body>
