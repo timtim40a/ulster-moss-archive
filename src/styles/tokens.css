@@ -21,7 +21,6 @@
   --space-12: 48px; /* Page-level section spacing. */
   --button-radius: 1px; /* Buttons, Label tags, and every photo frame — including a Card's — effectively square. Never on the Card container itself, which has no border of its own. */
   --font-serif: var(--font-cormorant), "Iowan Old Style", Georgia, serif;
-  --font-script: "Artefact", var(--font-caveat), cursive;
 
   /* Main font -- most body text, site-wide. */
   --font-body: "Courier New", Courier, monospace;
@@ -92,9 +91,11 @@
   font-weight: 400;
   letter-spacing: 0.12em;
 }
+/* Image captions: Letter Gothic, the approved heading face, set small. */
 .caption {
-  font-family: var(--font-script);
-  font-size: 19px;
-  line-height: 24px;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  line-height: 16px;
   font-weight: 400;
+  letter-spacing: 0.04em;
 }

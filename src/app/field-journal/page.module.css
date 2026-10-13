@@ -1,76 +1,141 @@
+/* The paper texture comes from body (globals.css, --paper-texture), so the
+   journal sets no background of its own.
+
+   Mobile first: one column, entries then the map at the bottom of the page.
+   From 921px: the map is a sticky left column and the entries scroll on the
+   right. */
 .journal {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: var(--space-12) var(--space-6);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-12);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-12) var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+}
+
+/* Last in the column on mobile, although first in the markup. */
+.mapColumn {
+    order: 1;
+}
+
+.entries {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    min-width: 0;
 }
 
 .entry {
-  position: relative;
-  max-width: 620px;
-  margin: 0 auto;
+    /* Contains the floated photo. */
+    display: flow-root;
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto;
+    /* Map markers link here; keep the date clear of the viewport edge. */
+    scroll-margin-top: var(--space-8);
 }
 
 .entry p {
-  margin: 0 0 var(--space-4);
-  font-size: 15px;
-  line-height: 1.9;
+    margin: 0 0 var(--space-4);
+    font-size: 15px;
+    line-height: 1.9;
 }
 
 .entryDate {
-  display: block;
-  margin: 0 0 var(--space-3);
+    display: block;
+    margin: 0 0 var(--space-3);
 }
 
-/* Small margin photos -- pinned beside the text like a field notebook.
-   Positioned relative to their own .entry, so they scroll with the text
-   they belong to instead of needing page-wide pixel math. */
-.marginPhoto {
-  position: absolute;
-  top: var(--space-2);
-  left: calc(100% + var(--space-8));
-  width: 150px;
-  margin: 0;
+/* Small photos pinned into the text like a field notebook, alternating
+   sides and slightly tilted. */
+.entryPhoto {
+    float: right;
+    width: 150px;
+    margin: var(--space-1) 0 var(--space-4) var(--space-6);
 }
 
-.marginPhotoLeft {
-  left: auto;
-  right: calc(100% + var(--space-8));
+.entryPhotoLeft {
+    float: left;
+    margin: var(--space-1) var(--space-6) var(--space-4) 0;
 }
 
-.marginPhoto img {
-  display: block;
-  width: 100%;
-  border: 1px solid var(--ink);
-  background: var(--paper);
-  padding: var(--space-1);
-  transform: rotate(-3deg);
+.entryPhoto img {
+    display: block;
+    width: 100%;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    padding: var(--space-1);
+    transform: rotate(-3deg);
 }
 
-.marginPhotoLeft img {
-  transform: rotate(3deg);
+.entryPhotoLeft img {
+    transform: rotate(3deg);
 }
 
-.marginCaption {
-  display: block;
-  margin: var(--space-1) 0 0;
-  text-align: center;
+.entryCaption {
+    display: block;
+    margin: var(--space-2) 0 0;
+    text-align: center;
 }
 
-/* Narrow viewports have no room for margin photos -- fall back to an
-   inline image ahead of the entry's text. */
-@media (max-width: 920px) {
-  .marginPhoto,
-  .marginPhotoLeft {
-    position: static;
-    width: 160px;
-    margin: 0 0 var(--space-4);
-  }
+/* Previous / next: Previous on the left, Next always on the right. */
+.pager {
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+}
 
-  .marginPhoto img,
-  .marginPhotoLeft img {
-    transform: none;
-  }
+.pagerLink {
+    color: var(--ink);
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+}
+
+.pagerLink:hover,
+.pagerLink:focus-visible {
+    border-bottom-color: var(--ink);
+}
+
+.pagerNext {
+    margin-left: auto;
+}
+
+/* Phones: too narrow to wrap text around a photo -- it sits above the text. */
+@media (max-width: 600px) {
+    .entryPhoto,
+    .entryPhotoLeft {
+        float: none;
+        width: 160px;
+        margin: 0 0 var(--space-4);
+    }
+
+    .entryPhoto img,
+    .entryPhotoLeft img {
+        transform: none;
+    }
+}
+
+@media (min-width: 921px) {
+    .journal {
+        display: grid;
+        grid-template-columns: clamp(280px, 32vw, 440px) minmax(0, 680px);
+        justify-content: center;
+        column-gap: var(--space-12);
+    }
+
+    /* The column stretches to the full height of the entries, so the map
+       inside it can stay in view the whole way down. */
+    .mapColumn {
+        order: 0;
+    }
+
+    .mapColumn .map {
+        position: sticky;
+        top: var(--space-6);
+        aspect-ratio: 1 / 1;
+        max-height: calc(100vh - 2 * var(--space-6));
+    }
 }

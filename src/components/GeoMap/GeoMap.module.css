@@ -1,0 +1,166 @@
+/* Geo-referenced map from the geo-site-map branch (archive-sheet/Map.module.css),
+   standing on its own instead of inside an archive sheet:
+   - --map-u is a fixed unit here; on the branch it was one sheet-cqw.
+   - Colours and fonts use the site tokens (--ink, --paper, approved fonts).
+   - The frame gets its own aspect ratio and the image styles that the
+     sheet's MediaFrame used to supply. */
+
+/* ---- geo map: markers given as coordinates (see geoProjection.ts) ----
+
+   The frame is a size container; the canvas is the whole map image, scaled
+   so the marker box (--bw x --bh, centred on --bcx/--bcy, all fractions of
+   the image) fits the frame, then panned to centre it without showing the
+   image's border (--inset) -- unless the whole inner map is smaller than
+   the frame, in which case it's kept fully in view instead. */
+
+.geoFrame {
+    --map-u: 10px;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border: 1px solid var(--ink);
+    container-type: size;
+    --s: min(100cqw / var(--bw), 100cqh / var(--bh));
+}
+
+.geoCanvas {
+    position: absolute;
+    width: var(--s);
+    height: var(--s);
+    left: clamp(
+        min(-1 * var(--inset) * var(--s), 100cqw - (1 - var(--inset)) * var(--s)),
+        50cqw - var(--bcx) * var(--s),
+        max(-1 * var(--inset) * var(--s), 100cqw - (1 - var(--inset)) * var(--s))
+    );
+    top: clamp(
+        min(-1 * var(--inset) * var(--s), 100cqh - (1 - var(--inset)) * var(--s)),
+        50cqh - var(--bcy) * var(--s),
+        max(-1 * var(--inset) * var(--s), 100cqh - (1 - var(--inset)) * var(--s))
+    );
+}
+
+/* The map prints onto the paper rather than sitting on top of it. */
+.printed {
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    filter: grayscale(1) sepia(0.15);
+}
+
+/* A zero-size anchor on the exact spot: the dot is centred on it and the
+   label hangs off whichever side faces into the view. */
+.geoMarker {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: 1;
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.markerDot {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(1.7 * var(--map-u));
+    height: calc(1.7 * var(--map-u));
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--font-heading);
+    font-size: calc(1 * var(--map-u));
+}
+
+.markerLabel {
+    position: absolute;
+    top: 0;
+    left: calc(0.85 * var(--map-u) + 0.4 * var(--map-u));
+    transform: translateY(-50%);
+    font-family: var(--font-heading);
+    font-size: calc(1.3 * var(--map-u));
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    background: color-mix(in srgb, var(--paper) 85%, transparent);
+    padding: 0 calc(0.3 * var(--map-u));
+    border-bottom: 1px solid transparent;
+}
+
+.geoMarkerLeft > .markerLabel {
+    left: auto;
+    right: calc(0.85 * var(--map-u) + 0.4 * var(--map-u));
+}
+
+.geoMarker:hover .markerLabel,
+.geoMarker:focus-visible .markerLabel {
+    border-bottom-color: var(--ink);
+}
+
+.geoMarker:focus-visible {
+    outline: none;
+}
+
+/* Current location(s): when any marker is active, the rest turn hollow and
+   step back, and the active ones grow a little with an underlined label. */
+.geoFrame:has(.geoMarkerActive) .geoMarker:not(.geoMarkerActive) .markerDot {
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--ink);
+}
+
+.geoFrame:has(.geoMarkerActive) .geoMarker:not(.geoMarkerActive) .markerLabel {
+    opacity: 0.6;
+}
+
+.geoMarkerActive {
+    z-index: 2;
+}
+
+.geoMarkerActive .markerDot {
+    width: calc(2.2 * var(--map-u));
+    height: calc(2.2 * var(--map-u));
+    font-size: calc(1.2 * var(--map-u));
+}
+
+.geoMarkerActive .markerLabel {
+    border-bottom-color: var(--ink);
+}
+
+.geoMarker:focus-visible .markerDot {
+    outline: 2px solid var(--accent-lavender);
+    outline-offset: 2px;
+}
+
+.geoScale {
+    position: absolute;
+    left: var(--map-u);
+    bottom: var(--map-u);
+    z-index: 2;
+    padding: calc(0.3 * var(--map-u)) calc(0.5 * var(--map-u));
+    background: color-mix(in srgb, var(--paper) 85%, transparent);
+}
+
+.scaleTrack {
+    width: calc(var(--frac) * var(--s));
+    height: calc(0.6 * var(--map-u));
+    border: 1px solid var(--ink);
+    background-image: repeating-linear-gradient(
+        to right,
+        var(--ink) 0,
+        var(--ink) calc(100% / var(--steps) / 2),
+        transparent calc(100% / var(--steps) / 2),
+        transparent calc(100% / var(--steps))
+    );
+}
+
+/* The bar can be short: let the row grow past it rather than overlap. */
+.scaleLabels {
+    display: flex;
+    justify-content: space-between;
+    gap: calc(0.6 * var(--map-u));
+    margin-top: calc(0.3 * var(--map-u));
+    font-family: var(--font-body);
+    font-size: calc(1 * var(--map-u));
+    white-space: nowrap;
+}

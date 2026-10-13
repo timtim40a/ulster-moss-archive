@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant, Cormorant_Garamond, Caveat } from "next/font/google";
+import { Cormorant, Cormorant_Garamond } from "next/font/google";
 import localFont from "next/font/local";
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
@@ -12,12 +12,6 @@ const cormorant = Cormorant({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   style: ["normal", "italic"],
-});
-
-const caveat = Caveat({
-  variable: "--font-caveat",
-  subsets: ["latin"],
-  weight: ["400", "600"],
 });
 
 // Helper font 2: the main heading in the Header only.
@@ -44,7 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${caveat.variable} ${cormorantGaramond.variable} ${letterGothic.variable}`}
+      className={`${cormorant.variable} ${cormorantGaramond.variable} ${letterGothic.variable}`}
     >
       <body>
         <Header title="Ulster Moss & Artefacts" nav={SITE_NAV} sections={HEADER_SECTIONS} />
