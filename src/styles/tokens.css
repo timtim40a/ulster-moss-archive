@@ -27,7 +27,7 @@
   /* Helper font -- headings and subheadings, site-wide. */
   --font-heading: var(--font-letter-gothic), "Courier New", monospace;
   /* Helper font 2 -- the main heading in the Header only. */
-  --font-hero: var(--font-cormorant-garamond), var(--font-serif), serif;
+  --font-hero: "Courier New", var(--font-serif), serif;
 }
 
 .display-lg {
