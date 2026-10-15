@@ -12,7 +12,6 @@ const FILES = readdirSync(path.join(process.cwd(), "public", "Archive"))
 export default function UlsterArchive() {
   return (
     <main className={styles.main}>
-      <h1 className={`${styles.heading} display-lg`}>Ulster Archive</h1>
       {FILES.map((file, i) => (
         <img
           key={file}
