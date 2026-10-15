@@ -1,0 +1,195 @@
+/*
+ * One centred slide with its neighbours peeking in from both sides.
+ *
+ * The track is exactly as wide as the viewport (its slides overflow it), so
+ * percentages in its translateX resolve against the viewport width -- the
+ * same width --slide is a percentage of. --pos (set from JS) is the index of
+ * the current slide in the track, clones included.
+ */
+.carousel {
+    --slide: min(52%, 46vh);
+    --gap: var(--space-6);
+    --duration: 250ms;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.carousel:focus-visible {
+    outline: 2px solid var(--accent-lavender);
+    outline-offset: 4px;
+}
+
+/* Holds the viewport and the arrows; the arrows sit outside the mask. */
+.stage {
+    position: relative;
+}
+
+/* The far ends dissolve into whatever is behind (paper texture included). */
+.viewport {
+    overflow: hidden;
+    /* Vertical scrolling stays native; horizontal drags become swipes. */
+    touch-action: pan-y;
+    mask-image: linear-gradient(to right, transparent, black 16%, black 84%, transparent);
+}
+
+.track {
+    display: flex;
+    gap: var(--gap);
+    transform: translateX(calc(50% - var(--slide) / 2 - var(--pos) * (var(--slide) + var(--gap))));
+}
+
+.slide {
+    position: relative;
+    flex: 0 0 var(--slide);
+    /* Portrait frame; contain inside it, so no photo is ever cropped. */
+    aspect-ratio: 3 / 4;
+    border: 1px solid var(--ink);
+    opacity: 0.5;
+    cursor: pointer;
+    user-select: none;
+}
+
+.current {
+    opacity: 1;
+    cursor: default;
+}
+
+/* Transitions only run while a slide is in progress, so the silent snap from
+   a clone back to the real item (see Carousel.tsx) happens instantly. */
+.animating {
+    transition: transform var(--duration) ease-out;
+}
+
+.animating .slide {
+    transition: opacity var(--duration) ease-out;
+}
+
+.image {
+    object-fit: contain;
+    -webkit-user-drag: none;
+}
+
+/* Prev/next sit on the current image's left and right edges. */
+.arrow {
+    position: absolute;
+    top: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.prev {
+    left: calc(50% - var(--slide) / 2);
+    transform: translate(-50%, -50%);
+}
+
+.next {
+    left: calc(50% + var(--slide) / 2);
+    transform: translate(-50%, -50%);
+}
+
+.arrow:focus-visible,
+.indicator:focus-visible {
+    outline: 2px solid var(--accent-lavender);
+    outline-offset: 2px;
+}
+
+/* "01 02 03 / 03" in the nav typography; each number is a 44px target. */
+.indicators {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.indicator {
+    min-width: 44px;
+    min-height: 44px;
+    border: none;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    letter-spacing: inherit;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.indicator[aria-current="true"] {
+    opacity: 1;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.count {
+    padding-left: var(--space-2);
+}
+
+/* All texts share one grid cell: the invisible sizers set the height to the
+   tallest item, and the live one is drawn on top. */
+.textStack {
+    display: grid;
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+.sizer,
+.live {
+    grid-area: 1 / 1;
+}
+
+.sizer {
+    visibility: hidden;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.live .text {
+    animation: textIn 120ms ease-out;
+}
+
+.text h2,
+.text p {
+    margin: 0;
+}
+
+@keyframes textIn {
+    from {
+        opacity: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .carousel {
+        --slide: 76%;
+        --gap: var(--space-3);
+    }
+
+    .viewport {
+        mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animating,
+    .animating .slide {
+        transition: none;
+    }
+
+    .live .text {
+        animation: none;
+    }
+}

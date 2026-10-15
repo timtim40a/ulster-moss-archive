@@ -1,50 +1,23 @@
 .main {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: var(--space-12) var(--space-6);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-12);
+    /* Full width: with auto margins alone, the main would size to the long
+       title's unbreakable width and push the page wider than a phone. */
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: var(--space-12) var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
 }
 
 .heading {
-  margin: 0;
+    margin: 0;
 }
 
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-8);
-}
-
-.rowReverse {
-  flex-direction: row-reverse;
-}
-
-.image {
-  margin: 0;
-  flex: 1 1 400px;
-}
-
-.image img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border: 1px solid var(--ink);
-}
-
-.text {
-  flex: 1 1 360px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.stepTitle {
-  margin: 0;
-}
-
-.text p {
-  margin: 0;
+/* "Reconstruction" is one word: scale it to fit a phone instead of overflowing. */
+@media (max-width: 600px) {
+    .heading {
+        font-size: 11vw;
+        line-height: 1.05;
+    }
 }
