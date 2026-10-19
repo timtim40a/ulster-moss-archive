@@ -1,13 +1,27 @@
 import { Carousel, type CarouselItem } from "@/components/Carousel/Carousel";
 import { fullPhoto } from "@/lib/images";
+import { sanityFetch } from "@/sanity/fetch";
+import { imageUrl } from "@/sanity/image";
+import { PROCESS_PAGE_QUERY } from "@/sanity/queries";
 import styles from "./page.module.css";
 
+interface ProcessItem {
+    _key: string;
+    assetId: string;
+    alt: string | null;
+    title: string | null;
+    text: string[] | null;
+}
+
+// Wide enough for the slide (52vw) on high-density screens; next/image sizes it down from here.
+const IMAGE_WIDTH = 2000;
+
 /*
- * The carousel's content, in order. To swap in the studio photos, edit only
- * this array: add, remove or reorder items freely. `src` is any public path
- * (fullPhoto() builds one for "public/Full photos/"); leave `title` empty
- * for no heading; each `text` entry is one paragraph.
+ * The original hardcoded content, no longer used: the carousel is managed
+ * in Sanity now. Kept only until the hardcoded content is removed, so this
+ * change can be reverted on its own.
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const PROCESS_ITEMS: CarouselItem[] = [
     {
         id: "recovery",
@@ -41,11 +55,22 @@ const PROCESS_ITEMS: CarouselItem[] = [
     },
 ];
 
-export default function Process() {
+export default async function Process() {
+    const items = await sanityFetch<ProcessItem[] | null>({ query: PROCESS_PAGE_QUERY, tags: ["processPage"] });
+
+    // Sanity's shape -> the carousel's existing item shape.
+    const carouselItems: CarouselItem[] = (items ?? []).map((item) => ({
+        id: item._key,
+        src: imageUrl(item.assetId, IMAGE_WIDTH),
+        alt: item.alt ?? "",
+        title: item.title ?? "",
+        text: item.text ?? [],
+    }));
+
     return (
         <main className={styles.main}>
             <h1 className={`${styles.heading} display-lg`}>Process / Reconstruction</h1>
-            <Carousel items={PROCESS_ITEMS} label="Process stages" />
+            <Carousel items={carouselItems} label="Process stages" />
         </main>
     );
 }
