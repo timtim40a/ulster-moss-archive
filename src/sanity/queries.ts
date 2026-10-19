@@ -4,3 +4,7 @@ import { defineQuery } from "next-sanity";
 // document id, which is their type name (see structure.ts).
 
 export const ABOUT_PAGE_QUERY = defineQuery(`*[_id == "aboutPage"][0]{ title, body }`);
+
+export const CONTACT_PAGE_QUERY = defineQuery(
+    `*[_id == "contactPage"][0]{ title, intro, email, phone, address, hours, formIntro }`,
+);

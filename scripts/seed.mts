@@ -45,8 +45,20 @@ const aboutPage: SeedDocument = {
     ],
 };
 
+// No phone: the original page has no phone row.
+const contactPage: SeedDocument = {
+    _id: "contactPage",
+    _type: "contactPage",
+    title: "Contact the Archive",
+    intro: "Placeholder copy. Enquiries about specific objects, provenance, loan requests, or the field journal are all welcome -- use the form, or reach out directly.",
+    email: "archive@ulstermoss.example",
+    address: "Donegal coast, Ireland",
+    hours: "By appointment only",
+    formIntro: "Enquiries about specific objects, provenance, or loan requests.",
+};
+
 async function main() {
-    const documents = [aboutPage];
+    const documents = [aboutPage, contactPage];
 
     const transaction = client.transaction();
     for (const doc of documents) {
