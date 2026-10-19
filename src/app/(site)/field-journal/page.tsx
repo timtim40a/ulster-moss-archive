@@ -1,10 +1,44 @@
+import Image from "next/image";
 import Link from "next/link";
+import { Fragment } from "react";
 import { GeoMap, type GeoMapPoint } from "@/components/GeoMap/GeoMap";
 import { fullPhoto, journalImage } from "@/lib/images";
+import { sanityFetch } from "@/sanity/fetch";
+import { imageUrl } from "@/sanity/image";
+import { JOURNAL_ENTRIES_QUERY } from "@/sanity/queries";
 import styles from "./page.module.css";
 
 const ENTRIES_PER_PAGE = 2;
 
+// Photos show at 150-160px wide; this covers high-density screens.
+const IMAGE_WIDTH = 640;
+
+interface SanityJournalEntry {
+    _id: string;
+    /** YYYY-MM-DD */
+    date: string;
+    conditions: string | null;
+    body: string[] | null;
+    images: { _key: string; assetId: string; width: number; height: number; alt: string | null; caption: string | null }[] | null;
+}
+
+const MONTHS = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+];
+
+/** "2026-03-14" + "low tide, overcast" -> "14 March -- low tide, overcast" */
+function entryHeading(date: string, conditions: string | null): string {
+    const [, month, day] = date.split("-").map(Number);
+    const dayMonth = `${day} ${MONTHS[month - 1]}`;
+    return conditions ? `${dayMonth} -- ${conditions}` : dayMonth;
+}
+
+/*
+ * The original hardcoded entries, no longer used: the journal is managed in
+ * Sanity now. Kept only until the hardcoded content is removed, so this
+ * change can be reverted on its own.
+ */
 interface JournalEntry {
     id: string;
     date: string;
@@ -14,6 +48,7 @@ interface JournalEntry {
     photoSide: "left" | "right";
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ENTRIES: JournalEntry[] = [
     {
         id: "entry-1",
@@ -65,20 +100,24 @@ const MAP_POINTS: GeoMapPoint[] = [
     { id: "ards", label: "Ards Peninsula", lat: 54.45, lng: -5.55, entryId: "entry-4" },
 ];
 
-const PAGE_COUNT = Math.ceil(ENTRIES.length / ENTRIES_PER_PAGE);
-
 const pageHref = (page: number) => (page === 1 ? "/field-journal" : `/field-journal?page=${page}`);
 
-/** Links to an entry on whichever page holds it. */
-function entryHref(entryId: string): string {
-    const index = ENTRIES.findIndex((entry) => entry.id === entryId);
-    return `${pageHref(Math.floor(index / ENTRIES_PER_PAGE) + 1)}#${entryId}`;
-}
-
 export default async function FieldJournal({ searchParams }: PageProps<"/field-journal">) {
+    const allEntries =
+        (await sanityFetch<SanityJournalEntry[] | null>({ query: JOURNAL_ENTRIES_QUERY, tags: ["journalEntry"] })) ?? [];
+    const pageCount = Math.max(1, Math.ceil(allEntries.length / ENTRIES_PER_PAGE));
+
+    /** Links to an entry on whichever page holds it; to the first page if the entry no longer exists. */
+    const entryHref = (entryId: string): string => {
+        const index = allEntries.findIndex((entry) => entry._id === entryId);
+        if (index === -1) return pageHref(1);
+        return `${pageHref(Math.floor(index / ENTRIES_PER_PAGE) + 1)}#${entryId}`;
+    };
+
     const requested = Number((await searchParams).page);
-    const page = Number.isInteger(requested) ? Math.min(Math.max(requested, 1), PAGE_COUNT) : 1;
-    const entries = ENTRIES.slice((page - 1) * ENTRIES_PER_PAGE, page * ENTRIES_PER_PAGE);
+    const page = Number.isInteger(requested) ? Math.min(Math.max(requested, 1), pageCount) : 1;
+    const start = (page - 1) * ENTRIES_PER_PAGE;
+    const entries = allEntries.slice(start, start + ENTRIES_PER_PAGE);
 
     return (
         <main className={styles.journal}>
@@ -87,29 +126,56 @@ export default async function FieldJournal({ searchParams }: PageProps<"/field-j
                 <GeoMap
                     points={MAP_POINTS}
                     entryHref={entryHref}
-                    activeEntryIds={entries.map((entry) => entry.id)}
+                    activeEntryIds={entries.map((entry) => entry._id)}
                     className={styles.map}
                 />
             </aside>
 
             <div className={styles.entries}>
-                {entries.map((entry) => (
-                    <section key={entry.id} id={entry.id} className={styles.entry}>
-                        <span className={`${styles.entryDate} eyebrow`}>{entry.date}</span>
-                        {/* Floats beside the text it belongs to, on its own side. */}
-                        <figure
-                            className={`${styles.entryPhoto} ${entry.photoSide === "left" ? styles.entryPhotoLeft : ""}`}
-                        >
-                            <img src={entry.photo.src} alt={entry.photo.alt} />
-                            <figcaption className={`${styles.entryCaption} caption`}>{entry.photo.caption}</figcaption>
-                        </figure>
-                        {entry.paragraphs.map((paragraph, j) => (
-                            <p key={j} className="body">
-                                {paragraph}
-                            </p>
-                        ))}
-                    </section>
-                ))}
+                {entries.map((entry, i) => {
+                    const paragraphs = entry.body ?? [];
+                    const images = entry.images ?? [];
+
+                    // Image k floats beside paragraph k, so several images run down the
+                    // entry; sides alternate, starting on the right for every other entry.
+                    const figure = (k: number) => {
+                        const image = images[k];
+                        const left = (start + i + k) % 2 === 1;
+                        return (
+                            <figure
+                                key={image._key}
+                                className={`${styles.entryPhoto} ${left ? styles.entryPhotoLeft : ""}`}
+                            >
+                                <Image
+                                    src={imageUrl(image.assetId, IMAGE_WIDTH)}
+                                    alt={image.alt ?? ""}
+                                    width={image.width}
+                                    height={image.height}
+                                    sizes="160px"
+                                />
+                                {image.caption && (
+                                    <figcaption className={`${styles.entryCaption} caption`}>{image.caption}</figcaption>
+                                )}
+                            </figure>
+                        );
+                    };
+
+                    return (
+                        <section key={entry._id} id={entry._id} className={styles.entry}>
+                            <span className={`${styles.entryDate} eyebrow`}>
+                                {entryHeading(entry.date, entry.conditions)}
+                            </span>
+                            {paragraphs.map((paragraph, k) => (
+                                <Fragment key={k}>
+                                    {k < images.length && figure(k)}
+                                    <p className="body">{paragraph}</p>
+                                </Fragment>
+                            ))}
+                            {/* Images beyond the number of paragraphs follow the text. */}
+                            {images.slice(paragraphs.length).map((_, k) => figure(paragraphs.length + k))}
+                        </section>
+                    );
+                })}
 
                 <nav className={`${styles.pager} nav`} aria-label="Journal pages">
                     {page > 1 && (
@@ -117,7 +183,7 @@ export default async function FieldJournal({ searchParams }: PageProps<"/field-j
                             Previous
                         </Link>
                     )}
-                    {page < PAGE_COUNT && (
+                    {page < pageCount && (
                         <Link className={`${styles.pagerLink} ${styles.pagerNext}`} href={pageHref(page + 1)}>
                             Next
                         </Link>

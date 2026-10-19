@@ -116,12 +116,74 @@ async function processPage(): Promise<SeedDocument> {
     };
 }
 
+// Ids match the original entry ids, which the journal map's points link to.
+// The original dates had no year; they are seeded in 2026.
+const JOURNAL_ENTRIES = [
+    {
+        _id: "entry-1",
+        date: "2026-03-14",
+        conditions: "low tide, overcast",
+        body: [
+            "Placeholder copy. Went out before the tide turned, following the line where the moss gives way to bare rock. Found the first fragment wedged under a shelf of stone, half-covered by a mat of bladderwrack. It took the better part of an hour to work it free without breaking the surrounding growth.",
+            "Placeholder copy. The surface is smoother than I expected -- worn in a way that suggests long tidal action rather than a single impact. No tool marks visible under the hand lens. Logged its position and photographed it in place before lifting it.",
+        ],
+        image: { file: "Journal/2.png", alt: "Placeholder -- journal sketch", caption: "field sketch, entry 1" },
+    },
+    {
+        _id: "entry-2",
+        date: "2026-03-22",
+        conditions: "clear, strong wind",
+        body: [
+            "Placeholder copy. Returned to the same stretch with the full kit this time. Wind made the fine brushwork difficult, so most of the cleaning was done back at the workbench. Photographed the surrounding context before anything was disturbed -- the moss cover here is unusually dense for this part of the shore.",
+            "Placeholder copy. A second, smaller fragment turned up roughly four metres from the first, at a similar depth. Possible they are related, though the materials differ enough that I am not yet confident in that reading.",
+        ],
+        image: { file: "Full photos/IMG_9258.jpg", alt: "Placeholder -- field photo", caption: "in situ, second find" },
+    },
+    {
+        _id: "entry-3",
+        date: "2026-04-02",
+        conditions: "rain, cut short",
+        body: [
+            "Placeholder copy. Weather cut the survey short, but not before mapping out the rest of the immediate area with the tape and compass. The notes from today are rougher than I would like -- transcribed properly once home, with the sketches redrawn from memory where the rain had made the field notebook illegible.",
+            "Placeholder copy. Still unclear whether this is a single dispersal event or an accumulation over a much longer period. The next visit should focus on depth measurements rather than further collection.",
+        ],
+        image: { file: "Journal/мала16.png", alt: "Placeholder -- journal sketch", caption: "rough map, redrawn" },
+    },
+    {
+        _id: "entry-4",
+        date: "2026-04-09",
+        conditions: "calm",
+        body: [
+            "Placeholder copy. A quieter visit. Spent most of the time on measurement rather than collection, which felt like the right call after the last entry. Depth readings are logged separately and will be cross-referenced with the site map once the Archive entry is drafted.",
+            "Placeholder copy. Closing thought for the week: the pattern here resists a tidy explanation, and that is probably fine for now.",
+        ],
+        image: { file: "Journal/приклад.png", alt: "Placeholder -- journal sketch", caption: "depth notes, week 4" },
+    },
+];
+
+async function journalEntry({ image, ...entry }: (typeof JOURNAL_ENTRIES)[number]): Promise<SeedDocument> {
+    return {
+        ...entry,
+        _type: "journalEntry",
+        images: [
+            {
+                _key: "image-1",
+                _type: "journalImage",
+                image: await uploadImage(image.file),
+                alt: image.alt,
+                caption: image.caption,
+            },
+        ],
+    };
+}
+
 // Every seeded document, by id. Built lazily, so images are only uploaded
 // for documents that are actually written.
 const DOCUMENTS: Record<string, () => SeedDocument | Promise<SeedDocument>> = {
     aboutPage: () => aboutPage,
     contactPage: () => contactPage,
     processPage,
+    ...Object.fromEntries(JOURNAL_ENTRIES.map((entry) => [entry._id, () => journalEntry(entry)])),
 };
 
 async function main() {

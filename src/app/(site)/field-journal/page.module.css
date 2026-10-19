@@ -62,6 +62,8 @@
 .entryPhoto img {
     display: block;
     width: 100%;
+    /* next/image sets width/height attributes; keep the image's own proportions. */
+    height: auto;
     border: 1px solid var(--ink);
     background: var(--paper);
     padding: var(--space-1);
