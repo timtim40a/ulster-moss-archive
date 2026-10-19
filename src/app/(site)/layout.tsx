@@ -23,7 +23,7 @@ const cormorantGaramond = Cormorant_Garamond({
 
 // Helper font: headings and subheadings everywhere else.
 const letterGothic = localFont({
-  src: "../fonts/LetterGothicStandard.ttf",
+  src: "../../fonts/LetterGothicStandard.ttf",
   variable: "--font-letter-gothic",
   weight: "400",
   style: "normal",
