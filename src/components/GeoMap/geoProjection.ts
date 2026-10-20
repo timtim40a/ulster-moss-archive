@@ -26,9 +26,10 @@ interface ControlPoint extends LatLon {
 
 /** Pixel size of site-map.jpg. */
 export const SITE_MAP_SIZE = 1024;
-/** Width of the image's decorative double-rule border, as a fraction; the
- * view never pans into it. */
-export const SITE_MAP_INSET = 0.05;
+/** How far the view may come to the image's edges, as a fraction: just inside
+ * the decorative double-rule border (its inner rule is at ~0.037), so the
+ * rules never show but a marker on Malin Head still fits. */
+export const SITE_MAP_INSET = 0.04;
 
 /** Landmarks read off site-map.jpg at 2x zoom with a 20px grid overlay. */
 export const SITE_MAP_CONTROL_POINTS: ControlPoint[] = [

@@ -14,6 +14,7 @@
    the frame, in which case it's kept fully in view instead. */
 
 .geoFrame {
+    /* The marker unit; the canvas narrows it on small maps (below). */
     --map-u: 10px;
     position: relative;
     width: 100%;
@@ -38,6 +39,14 @@
         50cqh - var(--bcy) * var(--s),
         max(-1 * var(--inset) * var(--s), 100cqh - (1 - var(--inset)) * var(--s))
     );
+}
+
+/* On a narrow map, smaller markers, so nearby sites don't cover each other. */
+@container (max-width: 360px) {
+    .geoCanvas,
+    .geoScale {
+        --map-u: 8px;
+    }
 }
 
 /* The map prints onto the paper rather than sitting on top of it. */

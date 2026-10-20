@@ -12,10 +12,12 @@ import styles from "./GeoMap.module.css";
 
 export interface GeoMapPoint {
     id: string;
-    label: string;
+    /** Optional: without one the marker shows only its number. */
+    label?: string;
     lat: number;
     lng: number;
-    entryId: string;
+    /** Optional: without one the marker is not a link. */
+    entryId?: string;
 }
 
 export interface GeoMapProps {
@@ -62,17 +64,28 @@ export function GeoMap({
                 <Image src={src} alt={alt} fill sizes="(max-width: 920px) 100vw, 460px" className={styles.printed} />
                 {points.map((point, i) => {
                     const placed = view.markers[i];
-                    const isActive = activeEntryIds.includes(point.entryId);
-                    return (
+                    const isActive = point.entryId !== undefined && activeEntryIds.includes(point.entryId);
+                    const className = `${styles.geoMarker} ${placed.labelSide === "left" ? styles.geoMarkerLeft : ""} ${isActive ? styles.geoMarkerActive : ""}`;
+                    const style = { left: `${placed.fx * 100}%`, top: `${placed.fy * 100}%` };
+                    const content = (
+                        <>
+                            <span className={styles.markerDot}>{i + 1}</span>
+                            {point.label && <span className={styles.markerLabel}>{point.label}</span>}
+                        </>
+                    );
+                    return point.entryId === undefined ? (
+                        <span key={point.id} className={className} style={style}>
+                            {content}
+                        </span>
+                    ) : (
                         <Link
                             key={point.id}
                             href={entryHref(point.entryId)}
-                            className={`${styles.geoMarker} ${placed.labelSide === "left" ? styles.geoMarkerLeft : ""} ${isActive ? styles.geoMarkerActive : ""}`}
+                            className={className}
                             aria-current={isActive ? "location" : undefined}
-                            style={{ left: `${placed.fx * 100}%`, top: `${placed.fy * 100}%` }}
+                            style={style}
                         >
-                            <span className={styles.markerDot}>{i + 1}</span>
-                            <span className={styles.markerLabel}>{point.label}</span>
+                            {content}
                         </Link>
                     );
                 })}

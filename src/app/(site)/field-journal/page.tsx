@@ -33,12 +33,19 @@ function entryHeading(date: string, conditions: string | null): string {
     return conditions ? `${dayMonth} -- ${conditions}` : dayMonth;
 }
 
-// Placeholder coordinates around the Ulster coast -- the client will send real ones.
+// The client's find sites, numbered on the map in this order. Not linked to
+// entries yet: give a point an entryId (and a label) to make it a link.
 const MAP_POINTS: GeoMapPoint[] = [
-    { id: "sheephaven", label: "Sheephaven Bay", lat: 55.17, lng: -7.88, entryId: "entry-1" },
-    { id: "maghera", label: "Maghera Strand", lat: 54.85, lng: -8.43, entryId: "entry-2" },
-    { id: "lough-neagh", label: "Lough Neagh shore", lat: 54.6, lng: -6.42, entryId: "entry-3" },
-    { id: "ards", label: "Ards Peninsula", lat: 54.45, lng: -5.55, entryId: "entry-4" },
+    { id: "site-1", lat: 54.7609, lng: -8.4443 },
+    { id: "site-2", lat: 54.6277, lng: -8.6851 },
+    { id: "site-3", lat: 55.158, lng: -7.8925 },
+    { id: "site-4", lat: 55.0567, lng: -7.9464 },
+    { id: "site-5", lat: 55.3818, lng: -7.3734 },
+    { id: "site-6", lat: 55.0189, lng: -8.124 },
+    { id: "site-7", lat: 55.0176, lng: -6.107 },
+    { id: "site-8", lat: 54.4883, lng: -6.5986 },
+    { id: "site-9", lat: 54.2585, lng: -7.8131 },
+    { id: "site-10", lat: 54.0998, lng: -6.2088 },
 ];
 
 const pageHref = (page: number) => (page === 1 ? "/field-journal" : `/field-journal?page=${page}`);
