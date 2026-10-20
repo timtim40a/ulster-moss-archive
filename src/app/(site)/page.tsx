@@ -120,6 +120,20 @@ export default async function Home() {
                             />
                         </div>
                     </div>
+                    <div className={styles.studioMap}>
+                        <HomeImage
+                            src={journalImage("малі10.png")}
+                            alt="Hand-drawn map of the route from Lough Sladdamore to Sheephaven Bay"
+                            sizes="12vw"
+                        />
+                    </div>
+                    <div className={styles.studioNotes}>
+                        <HomeImage
+                            src={journalImage("малі8.png")}
+                            alt="Field notes: intertidal sand texture, marram dune vegetation, and a map of Co. Donegal marking site MGH-01"
+                            sizes="15vw"
+                        />
+                    </div>
                     <div className={styles.studioEtching}>
                         <div className={styles.studioEtchingPlate}>
                             <HomeImage

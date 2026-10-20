@@ -267,7 +267,9 @@
  * below the paragraphs.
  */
 .studioPhoto,
-.studioEtching {
+.studioEtching,
+.studioMap,
+.studioNotes {
     position: absolute;
     overflow: clip;
 }
@@ -286,6 +288,28 @@
 
 .studioPhotoPlate {
     inset: 0;
+}
+
+/*
+ * One line above the quote, as in the client's layout: малі10.png (the route
+ * map, 1754:696) then малі8.png (field notes, 2492:779), both 6.44% of the
+ * section high, so each width follows from its own ratio and neither is
+ * cropped. The line starts at the quote's left edge.
+ */
+.studioMap,
+.studioNotes {
+    top: 4.59%;
+    height: 6.44%;
+}
+
+.studioMap {
+    left: 63.923%;
+    width: 11.476%;
+}
+
+.studioNotes {
+    left: 79.07%;
+    width: 14.566%;
 }
 
 /*
