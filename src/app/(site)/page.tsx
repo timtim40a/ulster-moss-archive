@@ -83,12 +83,9 @@ export default async function Home() {
                             <HomeImage
                                 src="/HomePhotos/2.png"
                                 alt="Small sculptural mirror leaning against a weathered boulder among coastal rocks"
-                                sizes="114vw"
+                                sizes="141vw"
                             />
                         </div>
-                    </div>
-                    <div className={styles.ulsterScale}>
-                        <HomeImage src={journalImage("мала21.png")} alt="" sizes="12vw" />
                     </div>
                 </div>
 
@@ -118,17 +115,17 @@ export default async function Home() {
                         <div className={styles.studioPhotoPlate}>
                             <HomeImage
                                 src="/HomePhotos/3.png"
-                                alt="Hands shaping a plaster mirror frame on a wooden worktable, beside specimen sketches A, B and F01"
-                                sizes="105vw"
+                                alt="Hands shaping a plaster mirror frame on a wooden worktable, beside specimen sketches A and B"
+                                sizes="59vw"
                             />
                         </div>
                     </div>
                     <div className={styles.studioEtching}>
                         <div className={styles.studioEtchingPlate}>
                             <HomeImage
-                                src="/HomePhotos/3.png"
+                                src={journalImage("малі6.png")}
                                 alt="Pencil etching of coastal cliffs and sea caves, viewed north-east from the dune ridge at Maghera Strand, Co. Donegal"
-                                sizes="72vw"
+                                sizes="25vw"
                             />
                         </div>
                     </div>

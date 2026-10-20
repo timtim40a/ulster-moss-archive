@@ -146,9 +146,9 @@
 /*
  * Both photos are shown as plates inside crop windows at the PDF's frames.
  * The dark photo is the PDF's own crop of IMG_9253-2 (px 152,1542 of the 3024px original at
- * 0.367 pt/px). The inset comes from the 2.png composite, whose inset
- * (px 256-844 x 272-944) is framed slightly tighter than the PDF's, so it is
- * scaled just enough to cover its frame.
+ * 0.367 pt/px). The inset comes from the 2.png composite (2327 x 1080), whose
+ * inset photo is px 653-1244 x 363-1002; the window has that photo's
+ * proportions and the plate is placed so exactly that photo fills it.
  */
 .ulsterBase,
 .ulsterInset {
@@ -176,18 +176,20 @@
     height: 175.78%;
 }
 
+/* Height and position as the PDF; width set by the photo's 591:639 ratio. */
 .ulsterInset {
     left: 8.095%;
     top: 35.185%;
-    width: 34.694%;
+    width: 35.657%;
     height: 54.52%;
 }
 
+/* 2327/591 and 1080/639 of the window, offset by the inset's 653 and 363 px. */
 .ulsterInsetPlate {
-    left: -43.811%;
-    top: -41.858%;
-    width: 327.49%;
-    height: 165.76%;
+    left: -110.49%;
+    top: -56.808%;
+    width: 393.74%;
+    height: 169.01%;
 }
 
 .ulsterScale {
@@ -259,10 +261,10 @@
 /* ---- Section 3: "I am finding these objects..." ------------------------ */
 
 /*
- * 3.png holds the studio photo (specimen sketches A/B and F01 already placed
- * on it) and, at its bottom right, the etching. The photo window shows it at
- * 0.5397 pt/px from the top-left; the etching window shows the same file at
- * 0.3701 pt/px so the etching lands in its PDF frame below the paragraphs.
+ * 3.png is the studio photo alone (the A/B sketch already placed on it); it
+ * fills the left window, a little over half the page, trimmed only at the
+ * top and bottom. The etching is its own file, малі6.png, filling its window
+ * below the paragraphs.
  */
 .studioPhoto,
 .studioEtching {
@@ -283,29 +285,22 @@
 }
 
 .studioPhotoPlate {
-    left: 0;
-    top: 0;
-    width: 179.43%;
-    height: 100%;
+    inset: 0;
 }
 
 /*
- * Shrunk (x0.852, bottom-left corner fixed) from the PDF's 28.81% x 24.226%
- * frame at 72.407%, so it starts one blank line below the description,
- * which ends at ~73.9% of the section.
+ * Starts one blank line below the description, which ends at ~73.9% of the
+ * section; the height gives the window малі6.png's 3522:2130 ratio.
  */
 .studioEtching {
     left: 63.928%;
     top: 76%;
     width: 24.537%;
-    height: 20.633%;
+    height: 20.986%;
 }
 
 .studioEtchingPlate {
-    left: -148.34%;
-    top: -155.37%;
-    width: 248.61%;
-    height: 283.1%;
+    inset: 0;
 }
 
 /*
