@@ -46,7 +46,7 @@ const MAP_POINTS: GeoMapPoint[] = [
     { id: "site-7", lat: 55.0176, lng: -6.107 },
     { id: "site-8", lat: 54.4883, lng: -6.5986 },
     { id: "site-9", lat: 54.2585, lng: -7.8131 },
-    { id: "site-10", lat: 54.0998, lng: -6.2088 },
+    { id: "site-10", label: "Carlingford Lough", lat: 54.0998, lng: -6.2088 },
 ];
 
 const pageHref = (page: number) => (page === 1 ? "/field-journal" : `/field-journal?page=${page}`);
