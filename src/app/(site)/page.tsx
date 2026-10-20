@@ -18,35 +18,6 @@ interface HomePage {
     description: string[] | null;
 }
 
-/*
- * The original hardcoded text, no longer used: the Home text is managed in
- * Sanity now. Kept only until the hardcoded text is removed, so this change
- * can be reverted on its own.
- */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const HOME_TEXT: HomePage = {
-    heroTitle: "Traces of Presence around...",
-    storyIntro:
-        "Among the rocks, I saw what looked like a whitish bone about twenty centimetres long. At least, that was what I thought until I came closer. No, it was not a bone. Something twisted... a white horn? I picked the thing up. It looked like...",
-    storyContinued: [
-        "It looked like nothing I had ever seen. It resembled an oddly shaped ceramic piece or a fragment of white limestone, polished in places. Somehow, the object was warm, although it had been lying in the shade. Up close, I would have said it was part of some organism whose anatomy had no place in the natural world as we know it.",
-        "I raised the object, holding it against the sun. For a moment, its edges became almost translucent. Then I felt a faint vibration in my palms.",
-    ],
-    hashtags: ["SculpturalMirror", "BiomorphicArt", "IrishArt"],
-    projectTitle: "Ulster Moss&Artefacts",
-    journalHeading: "Last from the Journal:",
-    journalExcerptTitle: "Entry, September 11...",
-    journalExcerpt: [
-        "“I looked around. It felt as though someone were watching me.",
-        "This particular artefact bore traces of moss beginning to grow, or perhaps seaweed. How long has it been here? I took out my phone to photograph its glow, but for some reason the camera could not focus on the object...”",
-    ],
-    quote: "“I am finding these objects more and more often. Or are they finding me?”",
-    description: [
-        "The textures themselves - objects - belong to a rare breed of unknown, probably unearthly origin. Its fragments were left in Ireland long before the emergence of our civilisation or its coming in now; we can’t answer yet. Artefacts are still found among forests, bogs and rocky landscapes. Their surface resembles at once an old bone, a fragment of ancient sculpture and the biological remains of creatures that never existed in our world.",
-        "The moss growing on the artefacts may not just be part of the local nature, but evidence of their slow awakening. I collect the found fragments, reconstruct them and combine them with mirrors. The mirror surface here functions as a portal: it releases the energy accumulated in the artefacts and directs it to alternative worlds - perhaps where they once came to Ireland.",
-    ],
-};
-
 /** Lines of one block, separated by <br /> as in the original markup. */
 function withLineBreaks(lines: string[]) {
     return lines.map((line, i) => (
