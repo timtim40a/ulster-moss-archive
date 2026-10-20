@@ -6,6 +6,7 @@ import type { StructureResolver } from "sanity/structure";
  * again, duplicated or deleted.
  */
 export const SINGLETONS = [
+    { type: "homePage", title: "Home" },
     { type: "aboutPage", title: "About" },
     { type: "contactPage", title: "Contact" },
     { type: "processPage", title: "Process" },

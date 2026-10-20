@@ -9,7 +9,13 @@ import type { SanityTag } from "@/sanity/fetch";
  * `_type`, so pages showing it are fresh on their very next request.
  */
 
-const TAGS: ReadonlySet<string> = new Set<SanityTag>(["aboutPage", "contactPage", "processPage", "journalEntry"]);
+const TAGS: ReadonlySet<string> = new Set<SanityTag>([
+    "homePage",
+    "aboutPage",
+    "contactPage",
+    "processPage",
+    "journalEntry",
+]);
 
 export async function POST(request: NextRequest) {
     const secret = process.env.SANITY_REVALIDATE_SECRET;

@@ -6,7 +6,7 @@ import { client } from "./client";
  * revalidates the tag (src/app/api/revalidate/route.ts), so every page
  * that fetched it refreshes.
  */
-export type SanityTag = "aboutPage" | "contactPage" | "processPage" | "journalEntry";
+export type SanityTag = "homePage" | "aboutPage" | "contactPage" | "processPage" | "journalEntry";
 
 /** Every site fetch goes through here: cached until its tags are revalidated. */
 export function sanityFetch<T>({

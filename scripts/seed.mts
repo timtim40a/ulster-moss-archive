@@ -45,6 +45,33 @@ async function uploadImage(publicPath: string) {
     return { _type: "image", asset: { _type: "reference", _ref: asset._id } };
 }
 
+// The description is the approved new copy; everything else is the original text.
+const homePage: SeedDocument = {
+    _id: "homePage",
+    _type: "homePage",
+    heroTitle: "Traces of Presence around...",
+    storyIntro:
+        "Among the rocks, I saw what looked like a whitish bone about twenty centimetres long. At least, that was what I thought until I came closer. No, it was not a bone. Something twisted... a white horn? I picked the thing up. It looked like...",
+    storyContinued: [
+        "It looked like nothing I had ever seen. It resembled an oddly shaped ceramic piece or a fragment of white limestone, polished in places. Somehow, the object was warm, although it had been lying in the shade. Up close, I would have said it was part of some organism whose anatomy had no place in the natural world as we know it.",
+        "I raised the object, holding it against the sun. For a moment, its edges became almost translucent. Then I felt a faint vibration in my palms.",
+    ],
+    hashtags: ["SculpturalMirror", "BiomorphicArt", "IrishArt"],
+    projectTitle: "Ulster Moss&Artefacts",
+    journalHeading: "Last from the Journal:",
+    journalExcerptTitle: "Entry, September 11...",
+    journalExcerpt: [
+        "“I looked around. It felt as though someone were watching me.",
+        "This particular artefact bore traces of moss beginning to grow, or perhaps seaweed. How long has it been here? I took out my phone to photograph its glow, but for some reason the camera could not focus on the object...”",
+    ],
+    quote: "“I am finding these objects more and more often. Or are they finding me?”",
+    description: [
+        "These textured objects seem to be fragments of something unknown, perhaps unearthly. They may have arrived in Ireland long before our civilisation, or they may still be arriving. We cannot yet say. The artefacts continue to turn up in forests, bogs and rocky landscapes. Their surfaces resemble old bone, weathered sculpture and the remains of creatures that have never existed in our world.",
+        "The moss growing over them may be more than part of the local landscape. It could be evidence of their slow awakening.",
+        "I collect these fragments, reconstruct them and combine them with mirrors. Each has its own shape, markings and gaps, leaving me to imagine the larger whole it once belonged to. I believe the mirror surface acts as a portal, releasing the energy held within the artefacts and connecting them to other worlds — perhaps the places they originally came from.",
+    ],
+};
+
 const aboutPage: SeedDocument = {
     _id: "aboutPage",
     _type: "aboutPage",
@@ -180,6 +207,7 @@ async function journalEntry({ image, ...entry }: (typeof JOURNAL_ENTRIES)[number
 // Every seeded document, by id. Built lazily, so images are only uploaded
 // for documents that are actually written.
 const DOCUMENTS: Record<string, () => SeedDocument | Promise<SeedDocument>> = {
+    homePage: () => homePage,
     aboutPage: () => aboutPage,
     contactPage: () => contactPage,
     processPage,
