@@ -13,11 +13,23 @@
  * takes its size from the steps below, so type is consistent page-wide. The
  * one deliberate exception is the section 2 title (--home-feature), which keeps
  * the PDF's 80 pt so it runs across both photos.
+ *
+ * The client's ratio: body 12, subheading 20, main heading 75, all derived
+ * from one base. --home-base is the body size in px at a 1440px-wide window;
+ * the sizes scale with the window from there, so the overlays keep their
+ * places, and the ratio holds at every width (the clamp is on the base).
+ * To change the base, edit --home-base only.
  */
 .homeWrapper {
-    --home-text: clamp(0.5rem, 1.15vw, 2.75rem);
-    --home-subhead: clamp(0.75rem, 1.68vw, 4rem);
-    --home-title: clamp(1.5rem, 4.368vw, 9rem);
+    --home-base: 16;
+    --home-base-size: clamp(0.5rem, calc(var(--home-base) / 1440 * 100vw), 2.75rem);
+    --home-text: var(--home-base-size);
+    /* The two story paragraphs in section 1: 1.5x the body size (2x overflows the section). */
+    --home-lead: calc(var(--home-base-size) * 1.5);
+    --home-subhead: calc(var(--home-base-size) * 20 / 12);
+    /* A fourth step between subheading and main heading, for "Traces of Presence around...". */
+    --home-display: calc(var(--home-base-size) * 47 / 12);
+    --home-title: calc(var(--home-base-size) * 75 / 12);
     --home-feature: clamp(1.5rem, 6.72vw, 14rem);
     --home-text-leading: 1.3333;
 
@@ -45,6 +57,14 @@
 /* A4 landscape page: 1190.55 x 841.89 pt */
 .landscape {
     aspect-ratio: 1.4142 / 1;
+}
+
+/*
+ * Section 3 runs ~5% taller than the page so the full-width etching fits
+ * below the description; its vertical positions are re-based on this height.
+ */
+.studio {
+    aspect-ratio: 1.3475 / 1;
 }
 
 /* All pictures of a section; text layers sit above it. */
@@ -90,27 +110,31 @@
     height: 12.2%;
 }
 
-/* Letter Gothic 26/28 pt */
+/*
+ * The fourth step (--home-display). As wide as the clear space above the
+ * collage allows, so it fits on one line, and lowered from the PDF's 5.884%
+ * towards the paragraph, as far as the rock's peak on the right allows.
+ */
 .tracesTitle {
     position: absolute;
     z-index: 1;
     left: 16.631%;
-    top: 5.884%;
-    width: 30%;
+    top: 10.5%;
+    width: 79.4%;
     font-family: var(--font-heading);
     letter-spacing: 0.1em;
-    font-size: var(--home-title);
+    font-size: var(--home-display);
     font-weight: 400;
     line-height: 1.0769;
 }
 
-/* Courier New, same size as the body text in the other sections */
+/* Courier New, 1.5x the body text of the other sections */
 .tracesText {
     position: absolute;
     z-index: 1;
     left: 17.387%;
     font-family: var(--font-body);
-    font-size: clamp(0.5rem, 1.5vw, 2.75rem);
+    font-size: var(--home-lead);
     line-height: var(--home-text-leading);
     hyphens: auto;
 }
@@ -125,14 +149,14 @@
     width: 56.243%;
 }
 
-/* ---- Section 2: "Ulster Moss&Artefacts" -------------------------------- */
+/* ---- Section 2: "Ulster Moss Artefacts" -------------------------------- */
 
 /*
  * Both photos are shown as plates inside crop windows at the PDF's frames.
  * The dark photo is the PDF's own crop of IMG_9253-2 (px 152,1542 of the 3024px original at
- * 0.367 pt/px). The inset comes from the 2.png composite, whose inset
- * (px 256-844 x 272-944) is framed slightly tighter than the PDF's, so it is
- * scaled just enough to cover its frame.
+ * 0.367 pt/px). The inset comes from the 2.png composite (2327 x 1080), whose
+ * inset photo is px 653-1244 x 363-1002; the window has that photo's
+ * proportions and the plate is placed so exactly that photo fills it.
  */
 .ulsterBase,
 .ulsterInset {
@@ -160,18 +184,20 @@
     height: 175.78%;
 }
 
+/* Height and position as the PDF; width set by the photo's 591:639 ratio. */
 .ulsterInset {
     left: 8.095%;
     top: 35.185%;
-    width: 34.694%;
+    width: 35.657%;
     height: 54.52%;
 }
 
+/* 2327/591 and 1080/639 of the window, offset by the inset's 653 and 363 px. */
 .ulsterInsetPlate {
-    left: -43.811%;
-    top: -41.858%;
-    width: 327.49%;
-    height: 165.76%;
+    left: -110.49%;
+    top: -56.808%;
+    width: 393.74%;
+    height: 169.01%;
 }
 
 .ulsterScale {
@@ -230,28 +256,58 @@
     line-height: 1;
 }
 
-/* Courier New Bold 12/16 pt; first baseline 33.3 pt below the heading's */
+/*
+ * Courier New 12/16 pt; first baseline 33.3 pt below the heading's. Set on a
+ * semi-transparent dark panel so it reads over the photo; the panel's
+ * padding is offset by negative margins, so the text stays where it was.
+ */
 .ulsterJournalEntry {
-    margin-top: 1.6563em;
+    --panel-pad-block: 0.6em;
+    --panel-pad-inline: 0.8em;
+    margin: calc(1.6563em - var(--panel-pad-block)) calc(-1 * var(--panel-pad-inline)) 0;
+    padding: var(--panel-pad-block) var(--panel-pad-inline);
+    background: color-mix(in srgb, var(--ink) 55%, transparent);
+    text-shadow: none;
     font-family: var(--font-body);
     font-size: var(--home-text);
-    font-weight: 700;
+    font-weight: 400;
     line-height: var(--home-text-leading);
     hyphens: auto;
+}
+
+/* The "Entry, ..." line is regular too, like the rest of the excerpt. */
+.ulsterJournalEntry strong {
+    font-weight: 400;
 }
 
 /* ---- Section 3: "I am finding these objects..." ------------------------ */
 
 /*
- * 3.png holds the studio photo (specimen sketches A/B and F01 already placed
- * on it) and, at its bottom right, the etching. The photo window shows it at
- * 0.5397 pt/px from the top-left; the etching window shows the same file at
- * 0.3701 pt/px so the etching lands in its PDF frame below the paragraphs.
+ * 3.png is the studio photo alone (the A/B sketch already placed on it); it
+ * fills the left window, a little over half the page, trimmed only at the
+ * top and bottom. The etching is its own file, малі6.png, filling its window
+ * below the paragraphs.
  */
 .studioPhoto,
-.studioEtching {
+.studioEtching,
+.studioMap,
+.studioNotes,
+.studioMirror {
     position: absolute;
     overflow: clip;
+}
+
+/*
+ * Mobile only (shown below 768px): Безымянный-2.png (3380:3501), as wide as
+ * the etching, centred in the gap between the image line (ends 10.51%) and
+ * the etching (starts 72.382%) that the description fills on wider screens.
+ */
+.studioMirror {
+    display: none;
+    left: 63.946%;
+    top: 18.413%;
+    width: 33%;
+    height: 46.057%;
 }
 
 .studioPhotoPlate,
@@ -267,33 +323,56 @@
 }
 
 .studioPhotoPlate {
-    left: 0;
-    top: 0;
-    width: 179.43%;
-    height: 100%;
+    inset: 0;
 }
 
+/*
+ * One line above the quote, as in the client's layout: малі10.png (the route
+ * map, 1754:696) then малі8.png (field notes, 2492:779), both the same height,
+ * so each width follows from its own ratio and neither is cropped. The line
+ * starts at the quote's left edge.
+ */
+.studioMap,
+.studioNotes {
+    top: 4.374%;
+    height: 6.136%;
+}
+
+.studioMap {
+    left: 63.923%;
+    width: 11.476%;
+}
+
+.studioNotes {
+    left: 79.07%;
+    width: 14.566%;
+}
+
+/*
+ * As wide as the description and in line with it, starting one blank line
+ * below it; the height gives the window малі6.png's 3522:1841 ratio.
+ */
 .studioEtching {
-    left: 63.928%;
-    top: 72.407%;
-    width: 28.81%;
-    height: 24.226%;
+    left: 63.946%;
+    top: 72.382%;
+    width: 33%;
+    height: 23.244%;
 }
 
 .studioEtchingPlate {
-    left: -148.34%;
-    top: -155.37%;
-    width: 248.61%;
-    height: 283.1%;
+    inset: 0;
 }
 
-/* Letter Gothic 20/28 pt, 29.5 characters */
+/*
+ * Subheading. As wide as the description below it, so it keeps the PDF's
+ * three lines at this size and stays clear of the description.
+ */
 .studioQuote {
     position: absolute;
     z-index: 1;
     left: 63.923%;
-    top: 16.313%;
-    width: 29.73%;
+    top: 15.544%;
+    width: 33%;
     font-family: var(--font-heading);
     letter-spacing: 0.1em;
     font-size: var(--home-subhead);
@@ -309,7 +388,7 @@
     position: absolute;
     z-index: 1;
     left: 63.946%;
-    top: 27.8%;
+    top: 26.489%;
     width: 33%;
     font-family: var(--font-body);
     font-size: var(--home-text);
@@ -327,11 +406,15 @@
 /* ---- Below 768px: pictures keep their ratio, text drops into flow ------ */
 
 @media (max-width: 767px) {
-    /* Same three steps, fixed for small screens. */
+    /*
+     * Same ratio, fixed for small screens: body and subheading at the base
+     * itself; the main heading scales down with the window so it never
+     * overflows its corner of the collage, but stays the largest text.
+     */
     .homeWrapper {
-        --home-text: 1rem;
-        --home-subhead: 1.25rem;
-        --home-title: 2.25rem;
+        --home-base-size: calc(var(--home-base) * 1px);
+        --home-title: clamp(1.5rem, 9vw, calc(var(--home-base-size) * 75 / 12));
+        --home-display: clamp(1.5rem, 9vw, calc(var(--home-base-size) * 47 / 12));
         --home-feature: 2.25rem;
         --home-text-leading: 1.6;
     }
@@ -372,7 +455,6 @@
         top: 6vw;
         align-self: start;
         width: 50vw;
-        font-size: 9vw;
     }
 
     .portrait .tracesFirst {
@@ -398,6 +480,14 @@
         aspect-ratio: 1.4142 / 1;
     }
 
+    .studio .stage {
+        aspect-ratio: 1.3475 / 1;
+    }
+
+    .studioMirror {
+        display: block;
+    }
+
     .tracesTitle,
     .tracesText,
     .ulsterTags,
@@ -416,6 +506,13 @@
         white-space: normal;
         color: var(--ink);
         text-shadow: none;
+    }
+
+    /* On paper the dark panel isn't needed. */
+    .ulsterJournalEntry {
+        margin: 1.6563em 0 0;
+        padding: 0;
+        background: none;
     }
 
     .section > p:last-child,

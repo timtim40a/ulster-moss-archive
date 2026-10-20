@@ -23,14 +23,14 @@ const cormorantGaramond = Cormorant_Garamond({
 
 // Helper font: headings and subheadings everywhere else.
 const letterGothic = localFont({
-  src: "../fonts/LetterGothicStandard.ttf",
+  src: "../../fonts/LetterGothicStandard.ttf",
   variable: "--font-letter-gothic",
   weight: "400",
   style: "normal",
 });
 
 export const metadata: Metadata = {
-  title: "Ulster Moss & Artefacts",
+  title: "Ulster Moss Artefacts",
   description: "A field record for objects the coast has half reclaimed.",
 };
 
@@ -41,7 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${cormorant.variable} ${cormorantGaramond.variable} ${letterGothic.variable}`}
     >
       <body>
-        <Header title="Ulster Moss & Artefacts" nav={SITE_NAV} sections={HEADER_SECTIONS} />
+        <Header title="Ulster Moss Artefacts" nav={SITE_NAV} sections={HEADER_SECTIONS} />
         {children}
         <Footer />
       </body>

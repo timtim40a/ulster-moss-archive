@@ -39,7 +39,7 @@ function CloseIcon() {
   );
 }
 
-export function Header({ title = "Ulster Moss & Artefacts", nav = [], sections = {} }: HeaderProps) {
+export function Header({ title = "Ulster Moss Artefacts", nav = [], sections = {} }: HeaderProps) {
   const pathname = usePathname();
   const section = Object.entries(sections).find(
     ([route]) => pathname === route || pathname.startsWith(route + "/")

@@ -9,7 +9,7 @@ export const SITE_NAV: NavItem[] = [
   { label: "Contact", href: "/contact" },
 ];
 
-// Routes whose Header title gains a section name: "Ulster Moss & Artefacts: Journal".
+// Routes whose Header title gains a section name: "Ulster Moss Artefacts: Journal".
 export const HEADER_SECTIONS: Record<string, string> = {
   "/field-journal": "Journal",
   "/ulster-archive": "Archive",

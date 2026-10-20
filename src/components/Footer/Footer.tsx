@@ -6,7 +6,7 @@ export interface FooterProps {
 }
 
 /** A minimal closing bar. The contact form lives on its own page now, not here. */
-export function Footer({ name = "Ulster Moss & Artefacts", tagline }: FooterProps) {
+export function Footer({ name = "Ulster Moss Artefacts", tagline }: FooterProps) {
   return (
     <footer className={styles.footer}>
       <p className={`${styles.name} eyebrow`}>{name}</p>
