@@ -13,11 +13,19 @@
  * takes its size from the steps below, so type is consistent page-wide. The
  * one deliberate exception is the section 2 title (--home-feature), which keeps
  * the PDF's 80 pt so it runs across both photos.
+ *
+ * The client's ratio: body 12, subheading 20, main heading 75, all derived
+ * from one base. --home-base is the body size in px at a 1440px-wide window;
+ * the sizes scale with the window from there, so the overlays keep their
+ * places, and the ratio holds at every width (the clamp is on the base).
+ * To change the base, edit --home-base only.
  */
 .homeWrapper {
-    --home-text: clamp(0.5rem, 1.15vw, 2.75rem);
-    --home-subhead: clamp(0.75rem, 1.68vw, 4rem);
-    --home-title: clamp(1.5rem, 4.368vw, 9rem);
+    --home-base: 16;
+    --home-base-size: clamp(0.5rem, calc(var(--home-base) / 1440 * 100vw), 2.75rem);
+    --home-text: var(--home-base-size);
+    --home-subhead: calc(var(--home-base-size) * 20 / 12);
+    --home-title: calc(var(--home-base-size) * 75 / 12);
     --home-feature: clamp(1.5rem, 6.72vw, 14rem);
     --home-text-leading: 1.3333;
 
@@ -90,13 +98,17 @@
     height: 12.2%;
 }
 
-/* Letter Gothic 26/28 pt */
+/*
+ * Main heading. As wide as the clear space above the collage allows (the
+ * rock's peak only starts below its lines), so it takes as few lines as
+ * the size permits.
+ */
 .tracesTitle {
     position: absolute;
     z-index: 1;
     left: 16.631%;
     top: 5.884%;
-    width: 30%;
+    width: 79.4%;
     font-family: var(--font-heading);
     letter-spacing: 0.1em;
     font-size: var(--home-title);
@@ -110,7 +122,7 @@
     z-index: 1;
     left: 17.387%;
     font-family: var(--font-body);
-    font-size: clamp(0.5rem, 1.5vw, 2.75rem);
+    font-size: var(--home-text);
     line-height: var(--home-text-leading);
     hyphens: auto;
 }
@@ -273,11 +285,16 @@
     height: 100%;
 }
 
+/*
+ * Shrunk (x0.852, bottom-left corner fixed) from the PDF's 28.81% x 24.226%
+ * frame at 72.407%, so it starts one blank line below the description,
+ * which ends at ~73.9% of the section.
+ */
 .studioEtching {
     left: 63.928%;
-    top: 72.407%;
-    width: 28.81%;
-    height: 24.226%;
+    top: 76%;
+    width: 24.537%;
+    height: 20.633%;
 }
 
 .studioEtchingPlate {
@@ -287,13 +304,16 @@
     height: 283.1%;
 }
 
-/* Letter Gothic 20/28 pt, 29.5 characters */
+/*
+ * Subheading. As wide as the description below it, so it keeps the PDF's
+ * three lines at this size and stays clear of the description.
+ */
 .studioQuote {
     position: absolute;
     z-index: 1;
     left: 63.923%;
     top: 16.313%;
-    width: 29.73%;
+    width: 33%;
     font-family: var(--font-heading);
     letter-spacing: 0.1em;
     font-size: var(--home-subhead);
@@ -327,11 +347,14 @@
 /* ---- Below 768px: pictures keep their ratio, text drops into flow ------ */
 
 @media (max-width: 767px) {
-    /* Same three steps, fixed for small screens. */
+    /*
+     * Same ratio, fixed for small screens: body and subheading at the base
+     * itself; the main heading scales down with the window so it never
+     * overflows its corner of the collage, but stays the largest text.
+     */
     .homeWrapper {
-        --home-text: 1rem;
-        --home-subhead: 1.25rem;
-        --home-title: 2.25rem;
+        --home-base-size: calc(var(--home-base) * 1px);
+        --home-title: clamp(1.5rem, 9vw, calc(var(--home-base-size) * 75 / 12));
         --home-feature: 2.25rem;
         --home-text-leading: 1.6;
     }
@@ -372,7 +395,6 @@
         top: 6vw;
         align-self: start;
         width: 50vw;
-        font-size: 9vw;
     }
 
     .portrait .tracesFirst {
