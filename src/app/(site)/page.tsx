@@ -134,6 +134,14 @@ export default async function Home() {
                             sizes="15vw"
                         />
                     </div>
+                    {/* Mobile only: fills the space the description takes on wider screens. */}
+                    <div className={styles.studioMirror}>
+                        <HomeImage
+                            src={journalImage("Безымянный-2.png")}
+                            alt="Round mirror framed by white sculpted fragments and moss"
+                            sizes="33vw"
+                        />
+                    </div>
                     <div className={styles.studioEtching}>
                         <div className={styles.studioEtchingPlate}>
                             <HomeImage

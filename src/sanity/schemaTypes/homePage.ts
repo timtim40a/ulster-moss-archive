@@ -40,7 +40,7 @@ export const homePage = defineType({
             name: "projectTitle",
             title: "Second heading",
             type: "string",
-            description: "The large heading of the second section, e.g. \"Ulster Moss&Artefacts\".",
+            description: "The large heading of the second section, e.g. \"Ulster Moss Artefacts\".",
             validation: (rule) => rule.max(40),
         }),
         defineField({

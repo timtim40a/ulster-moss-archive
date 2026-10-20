@@ -13,7 +13,7 @@ const SINGLETON_ACTIONS = new Set(["publish", "discardChanges", "restore"]);
 
 export default defineConfig({
     name: "default",
-    title: "Ulster Moss & Artefacts",
+    title: "Ulster Moss Artefacts",
     basePath: "/studio",
     projectId,
     dataset,

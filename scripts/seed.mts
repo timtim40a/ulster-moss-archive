@@ -57,7 +57,7 @@ const homePage: SeedDocument = {
         "I raised the object, holding it against the sun. For a moment, its edges became almost translucent. Then I felt a faint vibration in my palms.",
     ],
     hashtags: ["SculpturalMirror", "BiomorphicArt", "IrishArt"],
-    projectTitle: "Ulster Moss&Artefacts",
+    projectTitle: "Ulster Moss Artefacts",
     journalHeading: "Last from the Journal:",
     journalExcerptTitle: "Entry, September 11...",
     journalExcerpt: [
@@ -77,7 +77,7 @@ const aboutPage: SeedDocument = {
     _type: "aboutPage",
     title: "About the Artist",
     body: [
-        "Placeholder copy. A short biography goes here -- where the artist works, how long Ulster Moss & Artefacts has been underway, and what first drew them to the practice of collecting and recording along this stretch of coast.",
+        "Placeholder copy. A short biography goes here -- where the artist works, how long Ulster Moss Artefacts has been underway, and what first drew them to the practice of collecting and recording along this stretch of coast.",
         "Placeholder copy. A paragraph on method and materials: how pieces are found, documented, and eventually either reconstructed or left as they are. This is also a reasonable place to mention training, past exhibitions, or residencies, once that information is available.",
         "Placeholder copy. A closing paragraph on what the archive is for -- who it serves, and what the artist hopes a visitor takes from it.",
     ],

@@ -149,7 +149,7 @@
     width: 56.243%;
 }
 
-/* ---- Section 2: "Ulster Moss&Artefacts" -------------------------------- */
+/* ---- Section 2: "Ulster Moss Artefacts" -------------------------------- */
 
 /*
  * Both photos are shown as plates inside crop windows at the PDF's frames.
@@ -256,14 +256,28 @@
     line-height: 1;
 }
 
-/* Courier New Bold 12/16 pt; first baseline 33.3 pt below the heading's */
+/*
+ * Courier New 12/16 pt; first baseline 33.3 pt below the heading's. Set on a
+ * semi-transparent dark panel so it reads over the photo; the panel's
+ * padding is offset by negative margins, so the text stays where it was.
+ */
 .ulsterJournalEntry {
-    margin-top: 1.6563em;
+    --panel-pad-block: 0.6em;
+    --panel-pad-inline: 0.8em;
+    margin: calc(1.6563em - var(--panel-pad-block)) calc(-1 * var(--panel-pad-inline)) 0;
+    padding: var(--panel-pad-block) var(--panel-pad-inline);
+    background: color-mix(in srgb, var(--ink) 55%, transparent);
+    text-shadow: none;
     font-family: var(--font-body);
     font-size: var(--home-text);
-    font-weight: 700;
+    font-weight: 400;
     line-height: var(--home-text-leading);
     hyphens: auto;
+}
+
+/* The "Entry, ..." line is regular too, like the rest of the excerpt. */
+.ulsterJournalEntry strong {
+    font-weight: 400;
 }
 
 /* ---- Section 3: "I am finding these objects..." ------------------------ */
@@ -277,9 +291,23 @@
 .studioPhoto,
 .studioEtching,
 .studioMap,
-.studioNotes {
+.studioNotes,
+.studioMirror {
     position: absolute;
     overflow: clip;
+}
+
+/*
+ * Mobile only (shown below 768px): Безымянный-2.png (3380:3501), as wide as
+ * the etching, centred in the gap between the image line (ends 10.51%) and
+ * the etching (starts 72.382%) that the description fills on wider screens.
+ */
+.studioMirror {
+    display: none;
+    left: 63.946%;
+    top: 18.413%;
+    width: 33%;
+    height: 46.057%;
 }
 
 .studioPhotoPlate,
@@ -456,6 +484,10 @@
         aspect-ratio: 1.3475 / 1;
     }
 
+    .studioMirror {
+        display: block;
+    }
+
     .tracesTitle,
     .tracesText,
     .ulsterTags,
@@ -474,6 +506,13 @@
         white-space: normal;
         color: var(--ink);
         text-shadow: none;
+    }
+
+    /* On paper the dark panel isn't needed. */
+    .ulsterJournalEntry {
+        margin: 1.6563em 0 0;
+        padding: 0;
+        background: none;
     }
 
     .section > p:last-child,
