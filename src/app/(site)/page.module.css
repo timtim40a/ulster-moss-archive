@@ -24,6 +24,8 @@
     --home-base: 16;
     --home-base-size: clamp(0.5rem, calc(var(--home-base) / 1440 * 100vw), 2.75rem);
     --home-text: var(--home-base-size);
+    /* The two story paragraphs in section 1: 1.5x the body size (2x overflows the section). */
+    --home-lead: calc(var(--home-base-size) * 1.5);
     --home-subhead: calc(var(--home-base-size) * 20 / 12);
     --home-title: calc(var(--home-base-size) * 75 / 12);
     --home-feature: clamp(1.5rem, 6.72vw, 14rem);
@@ -99,7 +101,7 @@
 }
 
 /*
- * Main heading. As wide as the clear space above the collage allows (the
+ * Subheading. As wide as the clear space above the collage allows (the
  * rock's peak only starts below its lines), so it takes as few lines as
  * the size permits.
  */
@@ -111,18 +113,18 @@
     width: 79.4%;
     font-family: var(--font-heading);
     letter-spacing: 0.1em;
-    font-size: var(--home-title);
+    font-size: var(--home-subhead);
     font-weight: 400;
     line-height: 1.0769;
 }
 
-/* Courier New, same size as the body text in the other sections */
+/* Courier New, 1.5x the body text of the other sections */
 .tracesText {
     position: absolute;
     z-index: 1;
     left: 17.387%;
     font-family: var(--font-body);
-    font-size: var(--home-text);
+    font-size: var(--home-lead);
     line-height: var(--home-text-leading);
     hyphens: auto;
 }
