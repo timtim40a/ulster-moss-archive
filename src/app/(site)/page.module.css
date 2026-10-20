@@ -59,6 +59,14 @@
     aspect-ratio: 1.4142 / 1;
 }
 
+/*
+ * Section 3 runs ~5% taller than the page so the full-width etching fits
+ * below the description; its vertical positions are re-based on this height.
+ */
+.studio {
+    aspect-ratio: 1.3475 / 1;
+}
+
 /* All pictures of a section; text layers sit above it. */
 .stage {
     position: absolute;
@@ -292,14 +300,14 @@
 
 /*
  * One line above the quote, as in the client's layout: малі10.png (the route
- * map, 1754:696) then малі8.png (field notes, 2492:779), both 6.44% of the
- * section high, so each width follows from its own ratio and neither is
- * cropped. The line starts at the quote's left edge.
+ * map, 1754:696) then малі8.png (field notes, 2492:779), both the same height,
+ * so each width follows from its own ratio and neither is cropped. The line
+ * starts at the quote's left edge.
  */
 .studioMap,
 .studioNotes {
-    top: 4.59%;
-    height: 6.44%;
+    top: 4.374%;
+    height: 6.136%;
 }
 
 .studioMap {
@@ -313,14 +321,14 @@
 }
 
 /*
- * Starts one blank line below the description, which ends at ~73.9% of the
- * section; the height gives the window малі6.png's 3522:2130 ratio.
+ * As wide as the description and in line with it, starting one blank line
+ * below it; the height gives the window малі6.png's 3522:1841 ratio.
  */
 .studioEtching {
-    left: 63.928%;
-    top: 76%;
-    width: 24.537%;
-    height: 20.986%;
+    left: 63.946%;
+    top: 72.382%;
+    width: 33%;
+    height: 23.244%;
 }
 
 .studioEtchingPlate {
@@ -335,7 +343,7 @@
     position: absolute;
     z-index: 1;
     left: 63.923%;
-    top: 16.313%;
+    top: 15.544%;
     width: 33%;
     font-family: var(--font-heading);
     letter-spacing: 0.1em;
@@ -352,7 +360,7 @@
     position: absolute;
     z-index: 1;
     left: 63.946%;
-    top: 27.8%;
+    top: 26.489%;
     width: 33%;
     font-family: var(--font-body);
     font-size: var(--home-text);
@@ -442,6 +450,10 @@
 
     .landscape .stage {
         aspect-ratio: 1.4142 / 1;
+    }
+
+    .studio .stage {
+        aspect-ratio: 1.3475 / 1;
     }
 
     .tracesTitle,

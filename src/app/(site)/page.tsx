@@ -109,7 +109,7 @@ export default async function Home() {
                 </div>
             </section>
 
-            <section className={`${styles.section} ${styles.landscape}`} aria-label={quoteLabel}>
+            <section className={`${styles.section} ${styles.landscape} ${styles.studio}`} aria-label={quoteLabel}>
                 <div className={styles.stage}>
                     <div className={styles.studioPhoto}>
                         <div className={styles.studioPhotoPlate}>
@@ -139,7 +139,7 @@ export default async function Home() {
                             <HomeImage
                                 src={journalImage("малі6.png")}
                                 alt="Pencil etching of coastal cliffs and sea caves, viewed north-east from the dune ridge at Maghera Strand, Co. Donegal"
-                                sizes="25vw"
+                                sizes="33vw"
                             />
                         </div>
                     </div>
