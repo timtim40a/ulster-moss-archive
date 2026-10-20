@@ -27,6 +27,8 @@
     /* The two story paragraphs in section 1: 1.5x the body size (2x overflows the section). */
     --home-lead: calc(var(--home-base-size) * 1.5);
     --home-subhead: calc(var(--home-base-size) * 20 / 12);
+    /* A fourth step between subheading and main heading, for "Traces of Presence around...". */
+    --home-display: calc(var(--home-base-size) * 47 / 12);
     --home-title: calc(var(--home-base-size) * 75 / 12);
     --home-feature: clamp(1.5rem, 6.72vw, 14rem);
     --home-text-leading: 1.3333;
@@ -101,19 +103,19 @@
 }
 
 /*
- * Subheading. As wide as the clear space above the collage allows (the
- * rock's peak only starts below its lines), so it takes as few lines as
- * the size permits.
+ * The fourth step (--home-display). As wide as the clear space above the
+ * collage allows, so it fits on one line, and lowered from the PDF's 5.884%
+ * towards the paragraph, as far as the rock's peak on the right allows.
  */
 .tracesTitle {
     position: absolute;
     z-index: 1;
     left: 16.631%;
-    top: 5.884%;
+    top: 10.5%;
     width: 79.4%;
     font-family: var(--font-heading);
     letter-spacing: 0.1em;
-    font-size: var(--home-subhead);
+    font-size: var(--home-display);
     font-weight: 400;
     line-height: 1.0769;
 }
@@ -357,6 +359,7 @@
     .homeWrapper {
         --home-base-size: calc(var(--home-base) * 1px);
         --home-title: clamp(1.5rem, 9vw, calc(var(--home-base-size) * 75 / 12));
+        --home-display: clamp(1.5rem, 9vw, calc(var(--home-base-size) * 47 / 12));
         --home-feature: 2.25rem;
         --home-text-leading: 1.6;
     }
