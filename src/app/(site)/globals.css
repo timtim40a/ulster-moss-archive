@@ -4,6 +4,8 @@
      * its natural scale. Smaller = finer grain, larger = coarser.
      */
     --paper-tile-width: 2312px;
+    /* How strongly the paper photo shows over the plain --paper colour: 1 = full, 0 = none. */
+    --paper-tile-opacity: 0.5;
 }
 
 html {
@@ -20,17 +22,22 @@ body {
  * The client's handmade paper, repeated down the page only and scrolling with
  * the content. The tile is mirrored top-to-bottom, so it repeats without a seam;
  * it's centred and cropped at the sides, and scaled up only on screens wider
- * than the tile, so there are never empty strips.
+ * than the tile, so there are never empty strips. A veil of the plain
+ * --paper colour on top fades it to --paper-tile-opacity.
  */
 body {
     min-height: 100%;
     display: flex;
     flex-direction: column;
     background-color: var(--paper);
-    background-image: url("/textures/paper-tile.webp");
-    background-repeat: repeat-y;
-    background-position: top center;
-    background-size: max(100%, var(--paper-tile-width)) auto;
+    background-image:
+        linear-gradient(
+            color-mix(in srgb, var(--paper) calc((1 - var(--paper-tile-opacity)) * 100%), transparent) 0 0
+        ),
+        url("/textures/paper-tile.webp");
+    background-repeat: no-repeat, repeat-y;
+    background-position: top left, top center;
+    background-size: 100% 100%, max(100%, var(--paper-tile-width)) auto;
     color: var(--ink);
 }
 
