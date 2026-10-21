@@ -53,9 +53,6 @@ export default async function Home() {
                             className={styles.shadow}
                         />
                     </div>
-                    <div className={styles.tracesScale}>
-                        <HomeImage src={journalImage("мала21.png")} alt="" sizes="23vw" />
-                    </div>
                 </div>
 
                 {home?.heroTitle && <h1 className={styles.tracesTitle}>{home.heroTitle}</h1>}
@@ -137,8 +134,8 @@ export default async function Home() {
                     {/* Mobile only: fills the space the description takes on wider screens. */}
                     <div className={styles.studioMirror}>
                         <HomeImage
-                            src={journalImage("Безымянный-2.png")}
-                            alt="Round mirror framed by white sculpted fragments and moss"
+                            src={journalImage("малі3.png")}
+                            alt="Pencil drawing of a moss-framed mirror: front elevation, 320 mm wide, and side profile, 60 mm deep"
                             sizes="33vw"
                         />
                     </div>

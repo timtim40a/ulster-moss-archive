@@ -7,6 +7,7 @@ import styles from "./page.module.css";
 interface ProcessItem {
     _key: string;
     assetId: string;
+    aspectRatio: number | null;
     alt: string | null;
     title: string | null;
     text: string[] | null;
@@ -25,6 +26,7 @@ export default async function Process() {
         alt: item.alt ?? "",
         title: item.title ?? "",
         text: item.text ?? [],
+        aspectRatio: item.aspectRatio ?? undefined,
     }));
 
     return (

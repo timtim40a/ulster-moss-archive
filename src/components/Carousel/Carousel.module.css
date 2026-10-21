@@ -1,13 +1,15 @@
 /*
  * One centred slide with its neighbours peeking in from both sides.
  *
- * The track is exactly as wide as the viewport (its slides overflow it), so
- * percentages in its translateX resolve against the viewport width -- the
- * same width --slide is a percentage of. --pos (set from JS) is the index of
- * the current slide in the track, clones included.
+ * Every frame is --slide-h tall and as wide as its own image (Carousel.tsx sets
+ * each width and the track's offset from the images' aspect ratios), so no
+ * image is cropped or leaves empty sides. Lengths are in cqw of .stage, the
+ * carousel's width; --current-w (set from JS) is the current frame's width.
  */
 .carousel {
-    --slide: min(52%, 46vh);
+    /* The height a 3:4 frame had at the previous min(52%, 46vh) width. */
+    --slide-h: min(69.333cqw, 61.333vh);
+    --slide-max-w: 90cqw;
     --gap: var(--space-6);
     --duration: 250ms;
     display: flex;
@@ -23,6 +25,7 @@
 /* Holds the viewport and the arrows; the arrows sit outside the mask. */
 .stage {
     position: relative;
+    container-type: inline-size;
 }
 
 /* The far ends dissolve into whatever is behind (paper texture included). */
@@ -33,17 +36,17 @@
     mask-image: linear-gradient(to right, transparent, black 16%, black 84%, transparent);
 }
 
+/* Its transform (from JS) centres the current slide. */
 .track {
     display: flex;
+    align-items: center;
     gap: var(--gap);
-    transform: translateX(calc(50% - var(--slide) / 2 - var(--pos) * (var(--slide) + var(--gap))));
 }
 
+/* Width and aspect-ratio come from the slide's image (Carousel.tsx). */
 .slide {
     position: relative;
-    flex: 0 0 var(--slide);
-    /* Portrait frame; contain inside it, so no photo is ever cropped. */
-    aspect-ratio: 3 / 4;
+    flex: 0 0 auto;
     border: 1px solid var(--ink);
     opacity: 0.5;
     cursor: pointer;
@@ -86,15 +89,17 @@
     font-family: var(--font-body);
     font-size: 20px;
     cursor: pointer;
+    /* Follows the current frame's edges as frames of different widths slide in. */
+    transition: left var(--duration) ease-out;
 }
 
 .prev {
-    left: calc(50% - var(--slide) / 2);
+    left: calc(50% - var(--current-w) / 2);
     transform: translate(-50%, -50%);
 }
 
 .next {
-    left: calc(50% + var(--slide) / 2);
+    left: calc(50% + var(--current-w) / 2);
     transform: translate(-50%, -50%);
 }
 
@@ -174,7 +179,8 @@
 
 @media (max-width: 600px) {
     .carousel {
-        --slide: 76%;
+        /* The height a 3:4 frame had at the previous 76% width. */
+        --slide-h: 101.333cqw;
         --gap: var(--space-3);
     }
 
@@ -185,7 +191,8 @@
 
 @media (prefers-reduced-motion: reduce) {
     .animating,
-    .animating .slide {
+    .animating .slide,
+    .arrow {
         transition: none;
     }
 

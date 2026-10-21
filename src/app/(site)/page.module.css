@@ -76,8 +76,7 @@
 
 /* Positioned box an image fills; also used as a crop window or a plate inside one. */
 .tracesCollage,
-.tracesMap,
-.tracesScale {
+.tracesMap {
     position: absolute;
 }
 
@@ -100,14 +99,6 @@
     top: 4.057%;
     width: 22.667%;
     height: 6.36%;
-}
-
-/* The bar sits in the bottom of a transparent canvas; the box is the whole canvas. */
-.tracesScale {
-    left: 71.63%;
-    top: 83.66%;
-    width: 22.77%;
-    height: 12.2%;
 }
 
 /*
@@ -139,8 +130,15 @@
     hyphens: auto;
 }
 
+/*
+ * Shifted left of the column by --traces-first-shift (a share of the page
+ * width) so it sits over the left edge of the mirror rather than its middle.
+ * Below 768px the paragraph drops into flow and ignores it.
+ */
 .tracesFirst {
-    top: 20.39%;
+    --traces-first-shift: -11%;
+    left: calc(17.387% - var(--traces-first-shift));
+    top: 17.39%;
     width: 55.034%;
 }
 
@@ -298,16 +296,16 @@
 }
 
 /*
- * Mobile only (shown below 768px): Безымянный-2.png (3380:3501), as wide as
- * the etching, centred in the gap between the image line (ends 10.51%) and
- * the etching (starts 72.382%) that the description fills on wider screens.
+ * Mobile only (shown below 768px): малі3.png (1861:1591), as wide as the
+ * etching, centred in the space above it (0-72.382%; the small sketches are
+ * hidden there), which the description fills on wider screens.
  */
 .studioMirror {
     display: none;
     left: 63.946%;
-    top: 18.413%;
+    top: 17.18%;
     width: 33%;
-    height: 46.057%;
+    height: 38.02%;
 }
 
 .studioPhotoPlate,
@@ -467,6 +465,11 @@
         grid-row: 3;
     }
 
+    /* On small screens the story paragraphs are ordinary body text. */
+    .tracesText {
+        font-size: var(--home-text);
+    }
+
     .stage {
         position: relative;
         grid-column: 1 / -1;
@@ -486,6 +489,12 @@
 
     .studioMirror {
         display: block;
+    }
+
+    /* The two small sketches above the quote aren't shown on small screens (lazy, so not downloaded). */
+    .studioMap,
+    .studioNotes {
+        display: none;
     }
 
     .tracesTitle,
