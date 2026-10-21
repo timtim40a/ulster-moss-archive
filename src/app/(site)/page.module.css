@@ -491,6 +491,12 @@
         display: block;
     }
 
+    /* The two small sketches above the quote aren't shown on small screens (lazy, so not downloaded). */
+    .studioMap,
+    .studioNotes {
+        display: none;
+    }
+
     .tracesTitle,
     .tracesText,
     .ulsterTags,
