@@ -1,31 +1,46 @@
+:root {
+    /*
+     * Width the paper tile is drawn at: its own pixel width, so the grain keeps
+     * its natural scale. Smaller = finer grain, larger = coarser.
+     */
+    --paper-tile-width: 2312px;
+}
+
 html {
-  height: 100%;
+    height: 100%;
 }
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: clip; /* not hidden: that makes body a scroll container and breaks position: sticky */
+    max-width: 100vw;
+    overflow-x: clip; /* not hidden: that makes body a scroll container and breaks position: sticky */
 }
 
+/*
+ * The client's handmade paper, repeated down the page only and scrolling with
+ * the content. The tile is mirrored top-to-bottom, so it repeats without a seam;
+ * it's centred and cropped at the sides, and scaled up only on screens wider
+ * than the tile, so there are never empty strips.
+ */
 body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--paper);
-  background-image: var(--paper-texture);
-  background-size: var(--paper-texture-size);
-  background-blend-mode: color-dodge;
-  color: var(--ink);
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--paper);
+    background-image: url("/textures/paper-tile.webp");
+    background-repeat: repeat-y;
+    background-position: top center;
+    background-size: max(100%, var(--paper-tile-width)) auto;
+    color: var(--ink);
 }
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
