@@ -19,6 +19,8 @@ export interface CarouselItem {
     title: string;
     /** Paragraphs shown under the image. */
     text: string[];
+    /** Width / height of the image; its frame takes this shape. Defaults to 3:4. */
+    aspectRatio?: number;
 }
 
 export interface CarouselProps {
@@ -41,6 +43,16 @@ const SWIPE_THRESHOLD = 40;
 const mod = (a: number, n: number) => ((a % n) + n) % n;
 const pad = (i: number) => String(i).padStart(2, "0");
 
+/*
+ * Each frame has the shared height (--slide-h) and its own image's width, so
+ * nothing is cropped and nothing is left empty -- capped at --slide-max-w for
+ * very wide images. Widths differ, so the track's offset is the sum of the
+ * slides before the current one, as a CSS expression (see Carousel.module.css).
+ */
+const DEFAULT_RATIO = 3 / 4;
+const slideWidth = (it: CarouselItem) =>
+    `min(var(--slide-h) * ${it.aspectRatio ?? DEFAULT_RATIO}, var(--slide-max-w))`;
+
 export function Carousel({ items, label }: CarouselProps) {
     const n = items.length;
     // Track position: index into `slides`, which is items with clones on both ends.
@@ -54,6 +66,12 @@ export function Carousel({ items, label }: CarouselProps) {
     const current = mod(pos - CLONES, n);
     const item = items[current];
     const slides = Array.from({ length: n + 2 * CLONES }, (_, k) => items[mod(k - CLONES, n)]);
+    // Centre the current slide: everything before it, plus half of it, back from the middle.
+    const before = slides.slice(0, pos).map(slideWidth);
+    const trackStyle = {
+        transform: `translateX(calc(50cqw - (${before.length ? before.join(" + ") : "0px"}) - ${pos} * var(--gap) - ${slideWidth(item)} / 2))`,
+    } as CSSProperties;
+    const stageStyle = { "--current-w": slideWidth(item) } as CSSProperties;
 
     const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -114,7 +132,7 @@ export function Carousel({ items, label }: CarouselProps) {
             tabIndex={0}
             onKeyDown={canNavigate ? onKeyDown : undefined}
         >
-            <div className={styles.stage}>
+            <div className={styles.stage} style={stageStyle}>
                 <div
                     className={styles.viewport}
                     onPointerDown={canNavigate ? onPointerDown : undefined}
@@ -123,7 +141,7 @@ export function Carousel({ items, label }: CarouselProps) {
                 >
                     <div
                         className={`${styles.track} ${animating ? styles.animating : ""}`}
-                        style={{ "--pos": pos } as CSSProperties}
+                        style={trackStyle}
                         onTransitionEnd={onTransitionEnd}
                     >
                         {slides.map((slide, k) => {
@@ -133,6 +151,12 @@ export function Carousel({ items, label }: CarouselProps) {
                                 <div
                                     key={`${k}-${slide.id}`}
                                     className={`${styles.slide} ${offset === 0 ? styles.current : ""}`}
+                                    style={
+                                        {
+                                            width: slideWidth(slide),
+                                            aspectRatio: slide.aspectRatio ?? DEFAULT_RATIO,
+                                        } as CSSProperties
+                                    }
                                     role={isClone ? undefined : "group"}
                                     aria-roledescription={isClone ? undefined : "slide"}
                                     aria-label={isClone ? undefined : `${mod(k - CLONES, n) + 1} of ${n}`}

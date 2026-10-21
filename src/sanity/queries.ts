@@ -26,7 +26,14 @@ export const CONTACT_PAGE_QUERY = defineQuery(
 
 // Items without an uploaded image are skipped.
 export const PROCESS_PAGE_QUERY = defineQuery(
-    `*[_id == "processPage"][0].items[defined(image.asset)]{ _key, "assetId": image.asset._ref, alt, title, text }`,
+    `*[_id == "processPage"][0].items[defined(image.asset)]{
+        _key,
+        "assetId": image.asset._ref,
+        "aspectRatio": image.asset->metadata.dimensions.aspectRatio,
+        alt,
+        title,
+        text
+    }`,
 );
 
 // Every entry, oldest first; the page paginates the result. One query for all
