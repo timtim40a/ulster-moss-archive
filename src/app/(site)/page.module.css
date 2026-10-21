@@ -136,9 +136,9 @@
  * Below 768px the paragraph drops into flow and ignores it.
  */
 .tracesFirst {
-    --traces-first-shift: 4%;
+    --traces-first-shift: -11%;
     left: calc(17.387% - var(--traces-first-shift));
-    top: 20.39%;
+    top: 17.39%;
     width: 55.034%;
 }
 
