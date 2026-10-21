@@ -139,7 +139,14 @@
     hyphens: auto;
 }
 
+/*
+ * Shifted left of the column by --traces-first-shift (a share of the page
+ * width) so it sits over the left edge of the mirror rather than its middle.
+ * Below 768px the paragraph drops into flow and ignores it.
+ */
 .tracesFirst {
+    --traces-first-shift: 4%;
+    left: calc(17.387% - var(--traces-first-shift));
     top: 20.39%;
     width: 55.034%;
 }
