@@ -10,6 +10,11 @@
 
 html {
     height: 100%;
+    /*
+     * A background of its own keeps body's paper on body itself: otherwise the
+     * browser moves body's background to the window, sized to the first screen.
+     */
+    background-color: var(--paper);
 }
 
 html,
