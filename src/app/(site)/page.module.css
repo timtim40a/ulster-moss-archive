@@ -474,6 +474,11 @@
         grid-row: 3;
     }
 
+    /* On small screens the story paragraphs are ordinary body text. */
+    .tracesText {
+        font-size: var(--home-text);
+    }
+
     .stage {
         position: relative;
         grid-column: 1 / -1;
