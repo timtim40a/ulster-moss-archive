@@ -296,16 +296,16 @@
 }
 
 /*
- * Mobile only (shown below 768px): Безымянный-2.png (3380:3501), as wide as
- * the etching, centred in the gap between the image line (ends 10.51%) and
- * the etching (starts 72.382%) that the description fills on wider screens.
+ * Mobile only (shown below 768px): малі3.png (1861:1591), as wide as the
+ * etching, centred in the space above it (0-72.382%; the small sketches are
+ * hidden there), which the description fills on wider screens.
  */
 .studioMirror {
     display: none;
     left: 63.946%;
-    top: 18.413%;
+    top: 17.18%;
     width: 33%;
-    height: 46.057%;
+    height: 38.02%;
 }
 
 .studioPhotoPlate,
