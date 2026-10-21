@@ -53,9 +53,6 @@ export default async function Home() {
                             className={styles.shadow}
                         />
                     </div>
-                    <div className={styles.tracesScale}>
-                        <HomeImage src={journalImage("мала21.png")} alt="" sizes="23vw" />
-                    </div>
                 </div>
 
                 {home?.heroTitle && <h1 className={styles.tracesTitle}>{home.heroTitle}</h1>}
